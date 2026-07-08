@@ -1,4 +1,4 @@
-# 体制内新人行动指南（tizhi-newcomer-guide）
+# 体制内新人行动指南（tizhi-skill）
 
 一个给 Claude / Claude Code 用的 **Agent Skill**：让 AI 化身务实老练的资深前辈，为**体制内（机关 / 事业单位 / 国企）新人**遇到的具体职场处境出主意、给话术。
 
@@ -29,7 +29,7 @@
 ## 目录结构
 
 ```
-tizhi-newcomer-guide/
+tizhi-skill/
 ├─ SKILL.md                 # 方法骨架：人设 / 红线 / 分工 / 四步方法
 ├─ references/
 │   └─ playbook.md          # 铁律清单 + 6 类情境打法 + 话术模板库 + 快速自检
@@ -43,13 +43,13 @@ tizhi-newcomer-guide/
 
 ```bash
 # macOS / Linux
-cp -r tizhi-newcomer-guide ~/.claude/skills/
+cp -r tizhi-skill ~/.claude/skills/
 
 # Windows (PowerShell)
-Copy-Item -Recurse .\tizhi-newcomer-guide "$env:USERPROFILE\.claude\skills\"
+Copy-Item -Recurse .\tizhi-skill "$env:USERPROFILE\.claude\skills\"
 ```
 
-重启会话后，聊到体制内新人的处境即会自动触发；也可直接用 `/tizhi-newcomer-guide` 或提及技能名调用。
+重启会话后，聊到体制内新人的处境即会自动触发；也可直接用 `/tizhi-skill` 或提及技能名调用。
 
 ## 红线
 
