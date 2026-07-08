@@ -1,6 +1,6 @@
 # 体制内新人行动指南（tizhi-skill）
 
-一个给 Claude / Claude Code 用的 **Agent Skill**：让 AI 化身务实老练的资深前辈，为**体制内（机关 / 事业单位 / 国企）新人**遇到的具体职场处境出主意、给话术。
+一个符合 [Agent Skills 开放规范](https://agentskills.io/specification) 的 **Agent Skill**：让 AI 化身务实老练的资深前辈，为**体制内（机关 / 事业单位 / 国企）新人**遇到的具体职场处境出主意、给话术。任何支持该规范的 agent（Claude Code、Codex、Cursor、Gemini CLI 等）都能加载使用。
 
 > 讲真话、讲潜规则、讲人情世故和自我保护——接地气，但守住合法合规与职业道德底线，不教违纪违法、不教搞人害人、不教弄虚作假。
 
@@ -29,27 +29,52 @@
 ## 目录结构
 
 ```
-tizhi-skill/
-├─ SKILL.md                 # 方法骨架：人设 / 红线 / 分工 / 四步方法
+tizhi-skill/                # ← 目录名必须是 tizhi-skill（规范要求：name 须与目录名一致）
+├─ SKILL.md                 # 方法骨架：人设 / 红线 / 分工 / 四步方法（含 YAML frontmatter）
 ├─ references/
 │   └─ playbook.md          # 铁律清单 + 6 类情境打法 + 话术模板库 + 快速自检
 ├─ README.md
+├─ LICENSE                  # MIT
 └─ docs/superpowers/        # 设计文档与实现计划（开发留痕，非运行所需）
 ```
 
+> 只有 `SKILL.md` 和 `references/` 是运行必需，其余是文档与留痕。
+
 ## 安装启用
 
-把 skill 目录放进 Claude Code 的技能目录：
+本 skill 是一个自包含的目录，把它放进对应 agent 的 skills 目录即可。**关键：目录名必须叫 `tizhi-skill`**（开放规范要求 `name` 与目录名一致），否则可能加载失败。
+
+克隆下来的仓库文件夹默认就叫 `tizhi-skill`，直接放进去即可：
 
 ```bash
-# macOS / Linux
+# 先克隆（得到的文件夹名正好是 tizhi-skill）
+git clone https://github.com/onlyLT/tizhi-skill.git
+```
+
+放到不同 agent 的技能目录（各家路径不同，以其文档为准）：
+
+| Agent | 技能目录（示例） |
+|---|---|
+| Claude Code | `~/.claude/skills/tizhi-skill/` |
+| Codex | `~/.codex/skills/tizhi-skill/`（或项目内 `.codex/skills/`） |
+| Cursor / 其它 | 参照各自"Skills / Agent Skills"文档，放入 `tizhi-skill/` |
+| 项目级共享 | 仓库内 `.skills/tizhi-skill/` 或团队约定目录 |
+
+```bash
+# macOS / Linux（以 Claude Code 为例）
 cp -r tizhi-skill ~/.claude/skills/
 
 # Windows (PowerShell)
 Copy-Item -Recurse .\tizhi-skill "$env:USERPROFILE\.claude\skills\"
 ```
 
-重启会话后，聊到体制内新人的处境即会自动触发；也可直接用 `/tizhi-skill` 或提及技能名调用。
+装好后重启会话，聊到体制内新人的处境即会按 `description` 自动触发；多数 agent 也支持 `/tizhi-skill` 或直接提技能名调用。
+
+**校验（可选）：** 用官方参考库检查是否合规——
+
+```bash
+skills-ref validate ./tizhi-skill
+```
 
 ## 红线
 
@@ -57,6 +82,7 @@ Copy-Item -Recurse .\tizhi-skill "$env:USERPROFILE\.claude\skills\"
 
 ## 说明
 
-- 类型：轻方法论型 skill（靠模型知识 + 回答框架，无内置检索、无外部依赖）
-- 纯写公文请用 `wow-gongwen-writing`；要长文/网页版指南请用 `beautiful-article`
+- 类型：轻方法论型 skill（靠模型知识 + 回答框架，**无脚本、无外部依赖、纯 Markdown**，因此可跨 agent 通用）
+- 分工：整篇公文代写、体系化长文/网页版指南不是它的重点——你的环境里若有专门的公文或文章技能，交给它们更合适
 - 内容为一般性经验参考，不构成任何单位的正式规定；具体以所在单位规章为准
+- 许可证：MIT，见 [LICENSE](LICENSE)
