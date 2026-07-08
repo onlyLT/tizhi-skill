@@ -1,6 +1,6 @@
-# 体制内新人行动指南（tizhi-skill）
+# 体制.skill（tizhi-skill）
 
-一个符合 [Agent Skills 开放规范](https://agentskills.io/specification) 的 **Agent Skill**：让 AI 化身务实老练的资深前辈，为**体制内（机关 / 事业单位 / 国企）新人**遇到的具体职场处境出主意、给话术。任何支持该规范的 agent（Claude Code、Codex、Cursor、Gemini CLI 等）都能加载使用。
+体制内小白的生存准则和行动指南。
 
 > 讲真话、讲潜规则、讲人情世故和自我保护——接地气，但守住合法合规与职业道德底线，不教违纪违法、不教搞人害人、不教弄虚作假。
 
