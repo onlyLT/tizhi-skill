@@ -4,16 +4,18 @@
 
 # 体制 · skill
 
-### 体制内小白的生存准则与行动指南
+### 体制内小白的行动指南
 
-让 AI 化身**早几年进去、愿意跟你交底的人**，帮你在机关 / 事业 / 国企的第一年看懂规则——少踩坑、会说话、稳住心态，也守住自己。
+让 AI 化身**知心大前辈**，帮你在机关 / 事业 / 国企的第一年看懂规则——少踩坑、会说话、稳住心态，也守住自己。
 
 <br>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue.svg)](https://agentskills.io/specification)
-[![Pure Markdown](https://img.shields.io/badge/deps-zero-brightgreen.svg)](#-说明)
-[![Works with](https://img.shields.io/badge/works%20with-Claude%20Code%20·%20Codex%20·%20Cursor-8A2BE2.svg)](#-安装启用)
+![含登量](https://img.shields.io/badge/%E5%90%AB%E7%99%BB%E9%87%8F-%E5%B7%B2%E5%8E%8B%E5%88%B0%E6%9C%80%E4%BD%8E-brightgreen.svg)
+![服从性](https://img.shields.io/badge/%E6%9C%8D%E4%BB%8E%E6%80%A7-%E8%87%AA%E6%84%BF%E9%80%89%E9%A1%B9-blueviolet.svg)
+![编制](https://img.shields.io/badge/%E7%BC%96%E5%88%B6-%E6%81%95%E4%B8%8D%E9%99%84%E8%B5%A0-lightgrey.svg)
+![红线](https://img.shields.io/badge/%E7%BA%A2%E7%BA%BF-%E9%9B%B6%E5%AE%B9%E5%BF%8D-critical.svg)
+![保命指数](https://img.shields.io/badge/%E4%BF%9D%E5%91%BD%E6%8C%87%E6%95%B0-MAX-orange.svg)
+![适用人群](https://img.shields.io/badge/%E9%80%82%E7%94%A8%E4%BA%BA%E7%BE%A4-i%E4%BA%BA%E5%8F%8B%E5%A5%BD-ff69b4.svg)
 
 </div>
 
