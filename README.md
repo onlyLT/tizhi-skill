@@ -62,7 +62,7 @@
 tizhi-skill/                # ← 目录名必须是 tizhi-skill（规范要求 name 与目录名一致）
 ├─ SKILL.md                 # 方法骨架：人设 / 红线 / 分工 / 四步方法
 ├─ references/
-│   └─ playbook.md          # 铁律清单 + 6 类情境打法 + 话术模板库 + 快速自检
+│   └─ playbook.md          # 心照不宣的常识 + 6 类情境打法 + 话术模板库 + 快速自检
 ├─ README.md
 ├─ LICENSE                  # MIT
 └─ docs/superpowers/        # 设计文档与实现计划（开发留痕，非运行所需）
