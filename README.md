@@ -1,6 +1,8 @@
 <div align="center">
 
-# 🏛️ 体制 · skill
+<img src="assets/icon.png" alt="体制.skill" width="180" style="border-radius:24px" />
+
+# 体制 · skill
 
 ### 体制内小白的生存准则与行动指南
 
