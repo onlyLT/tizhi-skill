@@ -285,36 +285,6 @@ section{scroll-margin-top:5.5rem}
 .divider::before,.divider::after{
   content:"";flex:1;height:1px;background:var(--line);
 }
-/* 情境格 */
-.scene-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(8.2rem,1fr));
-  gap:.5rem;
-}
-.scene-grid button{
-  all:unset;cursor:pointer;
-  font-family:var(--sans);font-size:.78rem;letter-spacing:.05em;
-  color:var(--ink-soft);text-align:center;
-  border:1px solid var(--line-strong);border-radius:7px;
-  padding:.5rem .3rem;
-  transition:all .15s ease;
-}
-.scene-grid button:hover{border-color:var(--red);color:var(--ink)}
-.scene-grid button.active{
-  background:var(--red);border-color:var(--red);color:#fcfaf4;font-weight:600;
-}
-/* 手机端：默认只显示当前选中的情境（自动分诊），其余收起可展开 */
-.scene-toggle{display:none}
-@media (max-width:52rem){
-  .scene-grid:not(.expanded) button[role=radio]:not(.active){display:none}
-  .scene-toggle{
-    all:unset;cursor:pointer;display:block;
-    margin:.55rem auto 0;text-align:center;
-    font-family:var(--sans);font-size:.75rem;letter-spacing:.12em;
-    color:var(--ink-soft);
-    padding:.2rem .8rem;
-  }
-  .scene-toggle:active{color:var(--red)}
-}
 /* 侧重格 */
 .mode-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(11rem,1fr));
@@ -472,6 +442,36 @@ section{scroll-margin-top:5.5rem}
   animation:blink 1s steps(2) infinite;
 }
 @keyframes blink{50%{opacity:0}}
+/* 开场加载：印章推进度条 */
+.rite{padding:.5rem 0 .2rem;margin-right:.9rem}
+.rite-track{
+  position:relative;height:.55rem;
+  border:1px solid var(--line-strong);border-radius:99px;
+  background:rgba(143,169,216,.08);
+}
+.rite-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--red) 45%,transparent),var(--red));
+  border-radius:99px;
+  transition:width .25s ease;
+}
+.rite-seal{
+  position:absolute;top:50%;left:0%;
+  translate:-50% -50%;
+  width:1.6rem;height:1.6rem;
+  background:var(--red);color:#fcfaf4;
+  font-size:.78rem;font-weight:700;
+  border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  transform:rotate(-3deg);
+  box-shadow:0 2px 8px rgba(0,0,0,.35);
+  transition:left .25s ease;
+}
+.rite-stage{
+  margin-top:.65rem;
+  font-family:var(--sans);font-size:.75rem;letter-spacing:.18em;
+  color:var(--ink-soft);
+}
 .gen-status{
   font-family:var(--sans);font-size:.72rem;color:var(--ink-soft);
   letter-spacing:.08em;
@@ -755,6 +755,14 @@ dialog.settings::backdrop{background:rgba(20,24,31,.45);backdrop-filter:blur(2px
 .settings .actions .ghost-btn:hover{color:var(--ink)}
 .settings .actions .primary-btn{background:var(--red);color:#fcfaf4;font-weight:600}
 .settings .actions .primary-btn:hover{opacity:.88}
+
+/* ————— 移动端优化 ————— */
+@media (max-width:52rem){
+  .result-panel{min-height:0}
+  .result-panel.idle{display:none}      /* 未开问前不占屏 */
+  .thread{max-height:none;overflow:visible;padding-right:0}  /* 不做内嵌滚动，随页面自然铺开 */
+  .settings input,.settings select{font-size:16px}  /* 防 iOS 聚焦自动放大 */
+}
 
 /* 复制成功提示 */
 .toast{
@@ -1121,18 +1129,6 @@ dialog.settings::backdrop{background:rgba(20,24,31,.45);backdrop-filter:blur(2px
             </div>
           </div>
 
-          <div class="divider">择其情境</div>
-          <div class="scene-grid" role="radiogroup" aria-label="选择情境分类" id="scene-grid">
-            <button type="button" role="radio" aria-checked="true" class="active" data-scene="">自动分诊</button>
-            <button type="button" role="radio" aria-checked="false" data-scene="领导关系">领导关系</button>
-            <button type="button" role="radio" aria-checked="false" data-scene="同事关系">同事关系</button>
-            <button type="button" role="radio" aria-checked="false" data-scene="做事办事">做事办事</button>
-            <button type="button" role="radio" aria-checked="false" data-scene="自我保护">自我保护</button>
-            <button type="button" role="radio" aria-checked="false" data-scene="成长晋升">成长晋升</button>
-            <button type="button" role="radio" aria-checked="false" data-scene="心态调适">心态调适</button>
-          </div>
-          <button type="button" class="scene-toggle" id="scene-toggle" aria-expanded="false">其余情境 ▾</button>
-
           <div class="divider">择其所需</div>
           <div class="mode-grid" role="radiogroup" aria-label="选择回答侧重" id="mode-grid">
             <button type="button" role="radio" aria-checked="true" class="active" data-mode="重点帮我拿主意、下判断，讲清利弊即可">
@@ -1169,7 +1165,7 @@ dialog.settings::backdrop{background:rgba(20,24,31,.45);backdrop-filter:blur(2px
         </div>
 
         <!-- 结果面板 -->
-        <div class="panel result-panel">
+        <div class="panel result-panel idle" id="result-panel">
           <div class="result-topline">
             <div>
               <span class="panel-label inverse">交底</span>
@@ -1437,12 +1433,13 @@ const el = {
   fInput:$("followup-input"), fSend:$("followup-send"),
   reset:$("reset"), samples:$("samples"),
   charCount:$("char-count"), resultStyle:$("result-style"),
-  keyHint:$("key-hint"),
+  keyHint:$("key-hint"), resultPanel:$("result-panel"),
   settings:$("settings"), openSettings:$("open-settings"),
   provider:$("cfg-provider"), url:$("cfg-url"), model:$("cfg-model"), key:$("cfg-key"),
-  sceneGrid:$("scene-grid"), modeGrid:$("mode-grid"), levelSwitch:$("level-switch"),
+  modeGrid:$("mode-grid"), levelSwitch:$("level-switch"),
   toast:$("toast"),
 };
+const isMobile = () => matchMedia("(max-width:52rem)").matches;
 
 /* ————— Markdown 渲染（轻量） ————— */
 function escapeHtml(s){
@@ -1501,23 +1498,8 @@ function bindRadioGroup(container){
     });
   });
 }
-bindRadioGroup(el.sceneGrid);
 bindRadioGroup(el.modeGrid);
 bindRadioGroup(el.levelSwitch);
-
-/* 手机端情境折叠：展开/收起，选中后自动收起 */
-const sceneToggle = $("scene-toggle");
-function setSceneExpanded(expanded){
-  el.sceneGrid.classList.toggle("expanded", expanded);
-  sceneToggle.setAttribute("aria-expanded", String(expanded));
-  sceneToggle.textContent = expanded ? "收起 ▴" : "其余情境 ▾";
-}
-sceneToggle.onclick = () => setSceneExpanded(!el.sceneGrid.classList.contains("expanded"));
-el.sceneGrid.addEventListener("click",(e)=>{
-  if(e.target.closest("button[role=radio]") && el.sceneGrid.classList.contains("expanded")){
-    setSceneExpanded(false);
-  }
-});
 function pick(container, attr){
   const b = container.querySelector("button.active");
   return b ? (b.dataset[attr]||"") : "";
@@ -1542,31 +1524,33 @@ function addTurn(kind, tagText){
   return body;
 }
 function scrollThread(){
+  if(isMobile()) return;  /* 手机端不做内嵌滚动 */
   el.thread.scrollTop = el.thread.scrollHeight;
+}
+function scrollToTurn(turnEl){
+  if(!isMobile()) return;
+  setTimeout(()=>{
+    const y = turnEl.getBoundingClientRect().top + window.scrollY - 64;
+    window.scrollTo({ top:y, behavior:"smooth" });
+  }, 60);
 }
 function beginConversation(){
   if(started) return;
   started = true;
   el.empty.style.display = "none";
   el.reset.hidden = false;
+  el.resultPanel.classList.remove("idle");
 }
 function updateStyleLine(){
-  const parts = [];
-  const scene = pickLabel(el.sceneGrid);
-  const mode = pickLabel(el.modeGrid);
-  const level = pickLabel(el.levelSwitch);
-  parts.push(scene==="自动分诊" ? "自动分诊" : scene);
-  parts.push(mode); parts.push(level);
-  el.resultStyle.textContent = parts.join(" · ");
+  el.resultStyle.textContent =
+    "自动分诊 · " + pickLabel(el.modeGrid) + " · " + pickLabel(el.levelSwitch);
 }
 
 /* ————— 发送 ————— */
 function composeUserContent(text){
   const notes = [];
-  const scene = pick(el.sceneGrid,"scene");
   const mode = pick(el.modeGrid,"mode");
   const level = pick(el.levelSwitch,"level");
-  if(scene) notes.push("我自认为这属于「"+scene+"」情境");
   if(mode) notes.push(mode);
   if(level) notes.push(level);
   return notes.length ? "【"+notes.join("；")+"】\n"+text : text;
@@ -1595,12 +1579,33 @@ async function send(text, isFollowup){
   el.fSend.disabled = true;
 
   const aBody = addTurn("a","答");
+  scrollToTurn(qBody.parentElement);
+
+  /* 开场加载：印章推进度条（首字回来即撤） */
+  const rite = document.createElement("div");
+  rite.className = "rite";
+  rite.innerHTML = '<div class="rite-track"><div class="rite-fill"></div><span class="rite-seal">底</span></div><div class="rite-stage"></div>';
+  aBody.appendChild(rite);
+  const riteFill = rite.querySelector(".rite-fill");
+  const riteSeal = rite.querySelector(".rite-seal");
+  const riteStage = rite.querySelector(".rite-stage");
+  const STAGES = ["正在摸底…","翻 playbook 找打法…","过三层透镜…","组织成句话术…"];
+  let riteP = 4, riteI = 0;
+  riteStage.textContent = STAGES[0];
+  riteFill.style.width = riteP+"%"; riteSeal.style.left = riteP+"%";
+  const riteTimers = [
+    setInterval(()=>{
+      riteP = Math.min(92, riteP + Math.max(.4, (92-riteP)*.045));
+      riteFill.style.width = riteP+"%"; riteSeal.style.left = riteP+"%";
+    }, 120),
+    setInterval(()=>{ riteI=(riteI+1)%STAGES.length; riteStage.textContent = STAGES[riteI] }, 1500),
+  ];
+  const stopRite = () => { riteTimers.forEach(clearInterval); if(rite.isConnected) rite.remove() };
+
   const cursor = document.createElement("span");
   cursor.className = "cursor";
-  aBody.appendChild(cursor);
   const status = document.createElement("div");
   status.className = "gen-status";
-  status.innerHTML = "<span>交底中…</span>";
   const stopBtn = document.createElement("button");
   stopBtn.textContent = "停止";
   stopBtn.onclick = () => aborter && aborter.abort();
@@ -1613,7 +1618,7 @@ async function send(text, isFollowup){
 
   aborter = new AbortController();
   try{
-    await stream(cfg, messages, (d)=>{ acc += d; paint() }, aborter.signal);
+    await stream(cfg, messages, (d)=>{ if(!acc) stopRite(); acc += d; paint() }, aborter.signal);
     messages.push({ role:"assistant", content:acc });
   }catch(e){
     if(e.name === "AbortError"){
@@ -1629,7 +1634,7 @@ async function send(text, isFollowup){
       err.querySelector(".e-cfg").onclick = openSettings;
     }
   }finally{
-    cursor.remove(); status.remove();
+    stopRite(); cursor.remove(); status.remove();
     busy = false;
     el.send.disabled = !el.input.value.trim();
     el.fSend.disabled = false;
@@ -1643,6 +1648,7 @@ async function send(text, isFollowup){
 /* 无 Key：演示回答 */
 function demoFlow(){
   const aBody = addTurn("a","答");
+  scrollToTurn(aBody.parentElement);
   aBody.innerHTML = '<div class="demo-note">尚未配置 API，以下为演示样例（预置内容，非实时生成）</div>';
   const target = document.createElement("div");
   aBody.appendChild(target);
@@ -1827,6 +1833,7 @@ el.reset.onclick = () => {
   el.empty.style.display = "";
   el.reset.hidden = true;
   el.followup.classList.remove("show");
+  el.resultPanel.classList.add("idle");
   el.resultStyle.textContent = "听你说完，再开口";
   el.input.focus();
 };
