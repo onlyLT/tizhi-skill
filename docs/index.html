@@ -7,33 +7,21 @@
 <meta name="description" content="体制内（机关/事业单位/国企）新人的处境顾问：说说你遇到的事，像早几年进去的人一样跟你交底——给判断、给话术、点风险。">
 <link rel="icon" href="assets/icon.png">
 <style>
+/* 默认深色（夜色版）：所有设备统一，不随系统深浅色切换 */
 :root{
-  --paper:#f5f2ea;
-  --sheet:#fcfaf4;
-  --ink:#262a33;
-  --ink-soft:#6b6a62;
-  --navy:#1e3a6e;
-  --navy-deep:#16294d;
-  --red:#bf3b2b;
+  color-scheme:dark;
+  --paper:#14181f;
+  --sheet:#1a1f29;
+  --ink:#e3ded2;
+  --ink-soft:#96917f;
+  --navy:#8fa9d8;
+  --navy-deep:#111a2e;
+  --red:#d8604e;
   --red-soft:#c9584a;
-  --line:#e4ddcc;
-  --line-strong:#d3c9b2;
+  --line:#2b3140;
+  --line-strong:#3a4152;
   --serif:"Noto Serif SC","Source Han Serif SC","Source Han Serif CN","Songti SC",STSong,SimSun,serif;
   --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",sans-serif;
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --paper:#14181f;
-    --sheet:#1a1f29;
-    --ink:#e3ded2;
-    --ink-soft:#96917f;
-    --navy:#8fa9d8;
-    --navy-deep:#111a2e;
-    --red:#d8604e;
-    --red-soft:#c9584a;
-    --line:#2b3140;
-    --line-strong:#3a4152;
-  }
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -314,6 +302,19 @@ section{scroll-margin-top:5.5rem}
 .scene-grid button.active{
   background:var(--red);border-color:var(--red);color:#fcfaf4;font-weight:600;
 }
+/* 手机端：默认只显示当前选中的情境（自动分诊），其余收起可展开 */
+.scene-toggle{display:none}
+@media (max-width:52rem){
+  .scene-grid:not(.expanded) button[role=radio]:not(.active){display:none}
+  .scene-toggle{
+    all:unset;cursor:pointer;display:block;
+    margin:.55rem auto 0;text-align:center;
+    font-family:var(--sans);font-size:.75rem;letter-spacing:.12em;
+    color:var(--ink-soft);
+    padding:.2rem .8rem;
+  }
+  .scene-toggle:active{color:var(--red)}
+}
 /* 侧重格 */
 .mode-grid{
   display:grid;grid-template-columns:repeat(auto-fill,minmax(11rem,1fr));
@@ -433,8 +434,7 @@ section{scroll-margin-top:5.5rem}
   user-select:none;
 }
 .turn.q .tag{color:var(--red);border:1.5px solid var(--red);transform:rotate(-3deg)}
-.turn.a .tag{color:var(--sheet);background:var(--navy)}
-@media (prefers-color-scheme: dark){.turn.a .tag{color:#14181f}}
+.turn.a .tag{color:#14181f;background:var(--navy)}
 .turn .body{overflow:hidden;font-size:.96rem}
 .turn.q .body{font-weight:700;padding-top:.25rem;white-space:pre-wrap}
 .turn.a .body{padding-top:.25rem}
@@ -455,12 +455,11 @@ section{scroll-margin-top:5.5rem}
 }
 .md code{
   font-family:var(--sans);font-size:.85em;
-  background:rgba(30,58,110,.08);
+  background:rgba(143,169,216,.14);
   padding:.1em .4em;border-radius:3px;
 }
-@media (prefers-color-scheme: dark){.md code{background:rgba(143,169,216,.14)}}
 .md pre{
-  background:rgba(30,58,110,.06);
+  background:rgba(143,169,216,.08);
   border:1px solid var(--line);border-radius:6px;
   padding:.75rem .95rem;margin-bottom:.8rem;
   overflow-x:auto;font-size:.85rem;line-height:1.7;
@@ -623,12 +622,11 @@ section{scroll-margin-top:5.5rem}
 .install-steps code{
   display:inline-block;
   font-family:Consolas,Menlo,monospace;font-size:.78rem;
-  background:rgba(30,58,110,.07);
+  background:rgba(143,169,216,.12);
   border:1px solid var(--line);border-radius:5px;
   padding:.15rem .6rem;margin:.2rem 0;
   word-break:break-all;
 }
-@media (prefers-color-scheme: dark){.install-steps code{background:rgba(143,169,216,.12)}}
 .prompt-example{
   border:1px dashed var(--line-strong);border-radius:8px;
   padding:.7rem .9rem;margin-top:.4rem;
@@ -1133,6 +1131,7 @@ dialog.settings::backdrop{background:rgba(20,24,31,.45);backdrop-filter:blur(2px
             <button type="button" role="radio" aria-checked="false" data-scene="成长晋升">成长晋升</button>
             <button type="button" role="radio" aria-checked="false" data-scene="心态调适">心态调适</button>
           </div>
+          <button type="button" class="scene-toggle" id="scene-toggle" aria-expanded="false">其余情境 ▾</button>
 
           <div class="divider">择其所需</div>
           <div class="mode-grid" role="radiogroup" aria-label="选择回答侧重" id="mode-grid">
@@ -1505,6 +1504,20 @@ function bindRadioGroup(container){
 bindRadioGroup(el.sceneGrid);
 bindRadioGroup(el.modeGrid);
 bindRadioGroup(el.levelSwitch);
+
+/* 手机端情境折叠：展开/收起，选中后自动收起 */
+const sceneToggle = $("scene-toggle");
+function setSceneExpanded(expanded){
+  el.sceneGrid.classList.toggle("expanded", expanded);
+  sceneToggle.setAttribute("aria-expanded", String(expanded));
+  sceneToggle.textContent = expanded ? "收起 ▴" : "其余情境 ▾";
+}
+sceneToggle.onclick = () => setSceneExpanded(!el.sceneGrid.classList.contains("expanded"));
+el.sceneGrid.addEventListener("click",(e)=>{
+  if(e.target.closest("button[role=radio]") && el.sceneGrid.classList.contains("expanded")){
+    setSceneExpanded(false);
+  }
+});
 function pick(container, attr){
   const b = container.querySelector("button.active");
   return b ? (b.dataset[attr]||"") : "";
