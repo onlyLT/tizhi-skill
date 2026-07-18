@@ -68,10 +68,11 @@ tizhi-skill/                # ← 目录名必须是 tizhi-skill（规范要求 
 ├─ assets/                  # 图标
 ├─ README.md
 ├─ LICENSE                  # MIT
-└─ docs/                    # 非运行所需：网页版 + 部署 + 开发留痕
-    ├─ index.html           # 在线体验页（GitHub Pages 站点，源选 main /docs）
-    ├─ deploy/              # 站长通道中转（Cloudflare Worker）部署套件
-    └─ design/              # 设计文档与实现计划
+├─ docs/                    # 非运行所需：网页版 + 部署 + 开发留痕
+│   ├─ index.html           # 在线体验页（静态站点根，Pages 输出目录选 docs）
+│   ├─ deploy/              # 站长通道·独立 Worker 版部署套件（备选）
+│   └─ design/              # 设计文档与实现计划
+└─ functions/api/chat.js    # 站长通道·Cloudflare Pages Functions 版（推荐，自动随站点部署）
 ```
 
 > 💡 只有 `SKILL.md` 和 `references/` 是运行必需，其余是网页、文档与留痕。

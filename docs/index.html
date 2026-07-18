@@ -1201,7 +1201,7 @@ dialog.settings::backdrop{background:rgba(20,24,31,.45);backdrop-filter:blur(2px
           <span class="eyebrow">请技归家 · 免费带走</span>
           <h2>把这套门道，<br>请进你自己的 AI</h2>
         </div>
-        <p>不必每次打开网页，也不消耗你的网页 API 额度。下载后安装到 Claude Code、Codex 等支持 Skill 的 agent 里，聊到体制内处境时自动生效，长期可用。</p>
+        <p>不必每次打开网页，也不消耗你的网页 API 额度。下载后安装到任何支持 Agent Skills 的 agent 里（Claude Code、Codex、Cursor 等均可），聊到体制内处境时自动生效，长期可用。</p>
       </div>
       <div class="skill-layout">
         <article class="skill-card">
@@ -1246,12 +1246,13 @@ dialog.settings::backdrop{background:rgba(20,24,31,.45);backdrop-filter:blur(2px
               <p>下载 ZIP 解压，保留完整的 <code>tizhi-skill</code> 文件夹（含 SKILL.md 与 references/）。</p>
             </div></li>
             <li><span>二</span><div>
-              <h4>放入 Skill 目录</h4>
-              <p>Claude Code（macOS / Linux）</p>
+              <h4>放入你所用 agent 的 skills 目录</h4>
+              <p>凡支持 Agent Skills 规范的 agent 都能装，文件夹名保持 <code>tizhi-skill</code>。常见位置：</p>
+              <p>Claude Code</p>
               <code>~/.claude/skills/tizhi-skill</code>
-              <p>Claude Code（Windows）</p>
-              <code>%USERPROFILE%\.claude\skills\tizhi-skill</code>
-              <p>Codex 等其他 agent 参照各自 skills 目录放置。</p>
+              <p>Codex</p>
+              <code>~/.codex/skills/tizhi-skill</code>
+              <p>Cursor 等其他 agent 参照各自文档的 skills 目录放置；团队共用可放进项目内约定的 skills 目录。</p>
             </div></li>
             <li><span>三</span><div>
               <h4>对话中自然触发</h4>
@@ -1261,7 +1262,7 @@ dialog.settings::backdrop{background:rgba(20,24,31,.45);backdrop-filter:blur(2px
                   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="11" height="11" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>复制
                 </button>
               </div>
-              <p style="margin-top:.4rem">聊到体制内处境会按触发条件自动生效，也可直接点名 <code>/tizhi-skill</code>。</p>
+              <p style="margin-top:.4rem">重启会话后，聊到体制内处境会按 skill 的触发条件自动生效；多数 agent 也支持按名字点名调用（如 <code>/tizhi-skill</code> 或"用 tizhi-skill 帮我看看…"）。</p>
             </div></li>
           </ol>
         </div>
@@ -1384,20 +1385,30 @@ const PRESETS = {
   custom:    { url:"", model:"" },
 };
 const CFG_KEY = "tizhi.cfg";
-/* 站长通道：把 deploy/worker.js 部署到 Cloudflare Worker 后，将地址填到这里
-   （形如 "https://tizhi-relay.xxx.workers.dev"）。留空则访客需自带 Key。 */
-const HOSTED_ENDPOINT = "";
+/* 站长通道接口地址，三种写法：
+   - "/api/chat"：Cloudflare Pages 自动部署的同域函数（仓库 /functions 目录），零配置，默认值
+   - "https://…workers.dev"：独立 Worker（docs/deploy/worker.js）的完整地址
+   - ""：关闭站长通道，访客需自带 Key
+   相对地址只在 http(s) 环境生效——本地 file:// 打开或没有函数的托管（如 GitHub Pages 镜像）
+   请改用完整地址或自带 Key。 */
+const HOSTED_ENDPOINT = "/api/chat";
+function hostedUrl(){
+  if(!HOSTED_ENDPOINT) return "";
+  if(/^https?:\/\//.test(HOSTED_ENDPOINT)) return HOSTED_ENDPOINT;
+  return /^https?:$/.test(location.protocol) ? HOSTED_ENDPOINT : "";
+}
 
 function loadCfg(){ try{ return JSON.parse(localStorage.getItem(CFG_KEY)) || null }catch{ return null } }
 function saveCfg(c){ localStorage.setItem(CFG_KEY, JSON.stringify(c)) }
 /* 实际生效的接口配置：访客自己的 Key 优先；否则走站长通道；都没有则返回 null（演示模式） */
 function getActiveCfg(){
+  const hu = hostedUrl();
   const cfg = loadCfg();
   if(cfg && cfg.provider === "hosted"){
-    return HOSTED_ENDPOINT ? { provider:"hosted", url:HOSTED_ENDPOINT, model:"", key:"" } : null;
+    return hu ? { provider:"hosted", url:hu, model:"", key:"" } : null;
   }
   if(cfg && cfg.key) return cfg;
-  if(HOSTED_ENDPOINT) return { provider:"hosted", url:HOSTED_ENDPOINT, model:"", key:"" };
+  if(hu) return { provider:"hosted", url:hu, model:"", key:"" };
   return null;
 }
 
@@ -1704,7 +1715,7 @@ async function stream(cfg, msgs, onDelta, signal){
 
 /* ————— 设置抽屉 ————— */
 function ensureHostedOption(){
-  if(!HOSTED_ENDPOINT || el.provider.querySelector('option[value=hosted]')) return;
+  if(!hostedUrl() || el.provider.querySelector('option[value=hosted]')) return;
   const opt = document.createElement("option");
   opt.value = "hosted";
   opt.textContent = "站长通道（免 Key）";
@@ -1714,8 +1725,8 @@ function fillSettings(){
   ensureHostedOption();
   let cfg = loadCfg();
   if(!cfg){
-    cfg = HOSTED_ENDPOINT
-      ? { provider:"hosted", url:HOSTED_ENDPOINT, model:"deepseek-chat（站长设定）", key:"" }
+    cfg = hostedUrl()
+      ? { provider:"hosted", url:hostedUrl(), model:"deepseek-chat（站长设定）", key:"" }
       : { provider:"deepseek", ...PRESETS.deepseek, key:"" };
   }
   el.provider.value = cfg.provider || "custom";
@@ -1742,7 +1753,7 @@ el.openSettings.onkeydown = (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDe
 document.getElementById("hint-cfg").onclick = openSettings;
 el.provider.onchange = () => {
   if(el.provider.value === "hosted"){
-    el.url.value = HOSTED_ENDPOINT;
+    el.url.value = hostedUrl();
     el.model.value = "deepseek-chat（站长设定）";
     el.key.value = "";
     return;
