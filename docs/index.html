@@ -1062,7 +1062,8 @@ dialog.settings::backdrop{background:rgba(20,24,31,.45);backdrop-filter:blur(2px
       <a href="#method">心法</a>
       <a href="#about">缘起</a>
     </nav>
-    <span class="header-cfg" id="open-settings" role="button" tabindex="0">设置 API ▸</span>
+    <!-- 暂时隐藏"设置 API"入口：访客默认走站长通道。需要恢复时删掉 style 即可 -->
+    <span class="header-cfg" id="open-settings" role="button" tabindex="-1" style="display:none">设置 API ▸</span>
   </div>
 </header>
 
