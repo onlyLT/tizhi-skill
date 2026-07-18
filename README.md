@@ -65,12 +65,16 @@ tizhi-skill/                # ← 目录名必须是 tizhi-skill（规范要求 
 ├─ SKILL.md                 # 方法骨架：人设 / 红线 / 分工 / 四步方法
 ├─ references/
 │   └─ playbook.md          # 心照不宣的常识 + 6 类情境打法 + 话术模板库 + 快速自检
+├─ assets/                  # 图标
 ├─ README.md
 ├─ LICENSE                  # MIT
-└─ docs/superpowers/        # 设计文档与实现计划（开发留痕，非运行所需）
+└─ docs/                    # 非运行所需：网页版 + 部署 + 开发留痕
+    ├─ index.html           # 在线体验页（GitHub Pages 站点，源选 main /docs）
+    ├─ deploy/              # 站长通道中转（Cloudflare Worker）部署套件
+    └─ design/              # 设计文档与实现计划
 ```
 
-> 💡 只有 `SKILL.md` 和 `references/` 是运行必需，其余是文档与留痕。
+> 💡 只有 `SKILL.md` 和 `references/` 是运行必需，其余是网页、文档与留痕。
 
 <br>
 

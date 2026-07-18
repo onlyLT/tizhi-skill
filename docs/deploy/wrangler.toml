@@ -1,0 +1,14 @@
+name = "tizhi-relay"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# 按 IP 限流：每 IP 每 60 秒最多 8 次（period 仅支持 10 或 60）
+[[unsafe.bindings]]
+name = "RATE_LIMITER"
+type = "ratelimit"
+namespace_id = "1001"
+simple = { limit = 8, period = 60 }
+
+# 可选：限定允许调用的页面来源（逗号分隔）。上线 GitHub Pages 后建议取消注释。
+# [vars]
+# ALLOWED_ORIGINS = "https://onlylt.github.io"

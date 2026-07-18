@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>体制 · skill｜有人跟你交底</title>
+<meta name="description" content="体制内（机关/事业单位/国企）新人的处境顾问：说说你遇到的事，像早几年进去的人一样跟你交底——给判断、给话术、点风险。">
+<link rel="icon" href="assets/icon.png">
+<style>
+:root{
+  --paper:#f5f2ea;
+  --sheet:#fcfaf4;
+  --ink:#262a33;
+  --ink-soft:#6b6a62;
+  --navy:#1e3a6e;
+  --navy-deep:#16294d;
+  --red:#bf3b2b;
+  --red-soft:#c9584a;
+  --line:#e4ddcc;
+  --line-strong:#d3c9b2;
+  --serif:"Noto Serif SC","Source Han Serif SC","Source Han Serif CN","Songti SC",STSong,SimSun,serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Source Han Sans SC",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#14181f;
+    --sheet:#1a1f29;
+    --ink:#e3ded2;
+    --ink-soft:#96917f;
+    --navy:#8fa9d8;
+    --navy-deep:#111a2e;
+    --red:#d8604e;
+    --red-soft:#c9584a;
+    --line:#2b3140;
+    --line-strong:#3a4152;
+  }
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.9;
+  text-wrap:pretty;
+}
+::selection{background:rgba(191,59,43,.18)}
+.page-noise{
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.37 0 0 0 0 0.3 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+main{position:relative;z-index:1}
+section{scroll-margin-top:5.5rem}
+
+/* ————— 通用元素 ————— */
+.seal{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--red);color:#fcfaf4;
+  font-weight:700;border-radius:5px;
+  transform:rotate(-3deg);
+  box-shadow:0 2px 8px rgba(191,59,43,.3);
+  user-select:none;
+}
+.eyebrow{
+  font-family:var(--sans);font-size:.72rem;
+  letter-spacing:.3em;color:var(--red);
+  display:block;margin-bottom:.7rem;
+}
+.wrap{max-width:72rem;margin:0 auto;padding:0 clamp(1.1rem,4vw,2.5rem)}
+
+/* 章节标题（壹贰叁） */
+.section-heading{
+  display:flex;align-items:flex-start;gap:1.1rem;
+  margin-bottom:clamp(1.8rem,4vw,2.8rem);
+}
+.section-heading .num{
+  flex:none;width:3rem;height:3rem;
+  border:1.5px solid var(--red);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--red);font-size:1.25rem;font-weight:700;
+  transform:rotate(-3deg);
+}
+.section-heading p{
+  font-family:var(--sans);font-size:.78rem;
+  letter-spacing:.22em;color:var(--ink-soft);
+}
+.section-heading h2{
+  font-size:clamp(1.4rem,3.4vw,1.9rem);
+  font-weight:700;line-height:1.4;letter-spacing:.02em;
+}
+
+/* ————— 吸顶导航 ————— */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.site-header .bar{
+  max-width:72rem;margin:0 auto;
+  padding:.7rem clamp(1.1rem,4vw,2.5rem);
+  display:flex;align-items:center;gap:1.6rem;
+}
+.brand{
+  display:flex;align-items:center;gap:.65rem;
+  text-decoration:none;color:var(--ink);
+  margin-right:auto;
+}
+.brand .seal{width:2.1rem;height:2.1rem;font-size:1.05rem}
+.brand-icon{
+  width:2.2rem;height:2.2rem;border-radius:8px;flex:none;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+.brand strong{display:block;font-size:1rem;letter-spacing:.14em;line-height:1.3}
+.brand small{
+  display:block;font-family:var(--sans);font-size:.6rem;
+  letter-spacing:.28em;color:var(--ink-soft);
+}
+.site-header nav{display:flex;gap:1.4rem}
+.site-header nav a{
+  font-family:var(--sans);font-size:.82rem;letter-spacing:.1em;
+  color:var(--ink-soft);text-decoration:none;
+  padding:.3rem 0;border-bottom:2px solid transparent;
+  transition:color .18s ease,border-color .18s ease;
+}
+.site-header nav a:hover{color:var(--red);border-color:var(--red)}
+.header-cfg{
+  font-family:var(--sans);font-size:.75rem;letter-spacing:.08em;
+  color:var(--ink-soft);cursor:pointer;
+  border:1px solid var(--line-strong);border-radius:99px;
+  padding:.3rem .9rem;
+  transition:color .18s ease,border-color .18s ease;
+  white-space:nowrap;
+}
+.header-cfg:hover{color:var(--red);border-color:var(--red)}
+@media (max-width:52rem){
+  .site-header nav{display:none}
+}
+
+/* ————— Hero ————— */
+.hero{
+  position:relative;
+  max-width:72rem;margin:0 auto;
+  padding:clamp(4rem,10vh,7rem) clamp(1.1rem,4vw,2.5rem) clamp(3rem,7vh,5rem);
+  text-align:center;
+}
+.hero-kicker{
+  font-family:var(--sans);font-size:.75rem;
+  letter-spacing:.35em;color:var(--ink-soft);
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+}
+.hero-kicker::before,.hero-kicker::after{
+  content:"";width:3rem;height:1px;background:var(--line-strong);
+}
+.hero h1{
+  margin-top:1.4rem;
+  font-size:clamp(2.4rem,7vw,4.2rem);
+  font-weight:700;line-height:1.35;letter-spacing:.06em;
+}
+.hero h1 em{
+  font-style:normal;color:var(--red);
+  border-bottom:4px solid color-mix(in srgb,var(--red) 30%,transparent);
+}
+.hero-copy{
+  margin:1.6rem auto 0;max-width:34rem;
+  color:var(--ink-soft);font-size:1.02rem;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:.6rem;
+  margin-top:2.4rem;
+  background:var(--red);color:#fcfaf4;
+  font-family:var(--serif);font-size:1.02rem;font-weight:700;letter-spacing:.14em;
+  padding:.85rem 2rem;border-radius:8px;
+  text-decoration:none;
+  box-shadow:0 6px 20px rgba(191,59,43,.28);
+  transition:transform .15s ease,background .18s ease;
+}
+.hero-cta:hover{background:var(--red-soft);transform:translateY(-2px)}
+.hero-cta svg{width:1.1em;height:1.1em}
+.hero-orbit{
+  position:absolute;
+  width:3.4rem;height:3.4rem;
+  border:1.5px solid color-mix(in srgb,var(--red) 45%,transparent);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;color:color-mix(in srgb,var(--red) 70%,transparent);
+  animation:float 7s ease-in-out infinite;
+}
+.orbit-one{left:8%;top:30%;transform:rotate(-8deg)}
+.orbit-two{right:8%;top:52%;transform:rotate(6deg);animation-delay:-3.5s}
+@keyframes float{
+  0%,100%{translate:0 0}
+  50%{translate:0 -12px}
+}
+.hero-note{
+  position:absolute;
+  writing-mode:vertical-rl;
+  font-family:var(--sans);font-size:.7rem;letter-spacing:.5em;
+  color:var(--ink-soft);opacity:.7;
+}
+.hero-note.left{left:clamp(.6rem,2vw,2rem);top:38%}
+.hero-note.right{right:clamp(.6rem,2vw,2rem);top:38%}
+@media (max-width:52rem){
+  .hero-orbit,.hero-note{display:none}
+}
+
+/* 信条横带 */
+.creed{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--sheet) 60%,transparent);
+}
+.creed .wrap{
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(1.2rem,4vw,3rem);
+  padding-top:1.1rem;padding-bottom:1.1rem;
+}
+.creed span{
+  font-size:1rem;letter-spacing:.3em;font-weight:700;color:var(--navy);
+}
+.creed i{width:5px;height:5px;background:var(--red);border-radius:1px;transform:rotate(45deg)}
+
+/* ————— 壹 · 问事 ————— */
+.tool-section{padding:clamp(3.5rem,8vh,6rem) 0}
+.tool-shell{
+  display:grid;gap:1.5rem;
+  align-items:start;
+}
+@media (min-width:62rem){
+  .tool-shell{grid-template-columns:1.02fr .98fr}
+}
+.panel{
+  background:var(--sheet);
+  border:1px solid var(--line-strong);
+  border-radius:14px;
+  padding:clamp(1.3rem,3vw,1.9rem);
+  box-shadow:0 8px 30px rgba(0,0,0,.06);
+}
+.panel-heading{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  margin-bottom:1.1rem;
+}
+.panel-label{
+  font-family:var(--sans);font-size:.68rem;letter-spacing:.3em;
+  color:var(--red);display:block;margin-bottom:.25rem;
+}
+.panel-label.inverse{color:var(--navy)}
+.panel-heading h3{font-size:1.15rem;font-weight:700;letter-spacing:.04em}
+.char-count{
+  font-family:var(--sans);font-size:.72rem;color:var(--ink-soft);
+  padding-top:.3rem;white-space:nowrap;
+}
+.input-panel textarea{
+  width:100%;
+  border:1px solid var(--line-strong);border-radius:9px;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);font-size:1rem;line-height:1.8;
+  padding:.85rem 1rem;
+  min-height:7.5rem;resize:vertical;
+  outline:none;
+  transition:border-color .18s ease,box-shadow .18s ease;
+}
+.input-panel textarea:focus{
+  border-color:var(--red);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--red) 12%,transparent);
+}
+.input-panel textarea::placeholder{color:var(--ink-soft);opacity:.65}
+.example-row{
+  margin-top:.8rem;
+  font-family:var(--sans);font-size:.75rem;color:var(--ink-soft);
+}
+.example-row>span{letter-spacing:.1em}
+.example-row .chips{
+  display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.5rem;
+}
+.example-row .chips button{
+  all:unset;cursor:pointer;
+  font-family:var(--serif);font-size:.8rem;line-height:1.5;
+  color:var(--ink-soft);
+  border:1px solid var(--line-strong);border-radius:99px;
+  padding:.28rem .85rem;
+  transition:color .15s ease,border-color .15s ease;
+}
+.example-row .chips button:hover{color:var(--red);border-color:var(--red)}
+.divider{
+  display:flex;align-items:center;gap:1rem;
+  margin:1.3rem 0 .9rem;
+  font-family:var(--sans);font-size:.7rem;letter-spacing:.3em;color:var(--ink-soft);
+}
+.divider::before,.divider::after{
+  content:"";flex:1;height:1px;background:var(--line);
+}
+/* 情境格 */
+.scene-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(8.2rem,1fr));
+  gap:.5rem;
+}
+.scene-grid button{
+  all:unset;cursor:pointer;
+  font-family:var(--sans);font-size:.78rem;letter-spacing:.05em;
+  color:var(--ink-soft);text-align:center;
+  border:1px solid var(--line-strong);border-radius:7px;
+  padding:.5rem .3rem;
+  transition:all .15s ease;
+}
+.scene-grid button:hover{border-color:var(--red);color:var(--ink)}
+.scene-grid button.active{
+  background:var(--red);border-color:var(--red);color:#fcfaf4;font-weight:600;
+}
+/* 侧重格 */
+.mode-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(11rem,1fr));
+  gap:.55rem;
+}
+.mode-grid button{
+  all:unset;cursor:pointer;
+  display:flex;align-items:center;gap:.7rem;
+  border:1px solid var(--line-strong);border-radius:9px;
+  padding:.6rem .8rem;
+  transition:all .15s ease;
+}
+.mode-grid button:hover{border-color:var(--red)}
+.mode-grid button.active{
+  border-color:var(--red);
+  background:color-mix(in srgb,var(--red) 6%,transparent);
+}
+.mode-grid .mark{
+  flex:none;width:1.9rem;height:1.9rem;
+  border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;font-weight:700;
+  border:1.5px solid var(--red);color:var(--red);
+  transform:rotate(-3deg);
+}
+.mode-grid button.active .mark{background:var(--red);color:#fcfaf4}
+.mode-grid strong{display:block;font-size:.88rem;letter-spacing:.05em;line-height:1.4}
+.mode-grid small{
+  display:block;font-family:var(--sans);font-size:.68rem;
+  color:var(--ink-soft);line-height:1.5;
+}
+/* 篇幅 */
+.level-field{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  margin-top:1.1rem;
+}
+.level-field .t{font-family:var(--sans);font-size:.75rem;letter-spacing:.15em;color:var(--ink-soft)}
+.level-switch{display:flex;border:1px solid var(--line-strong);border-radius:99px;overflow:hidden}
+.level-switch button{
+  all:unset;cursor:pointer;
+  font-family:var(--sans);font-size:.78rem;letter-spacing:.1em;
+  color:var(--ink-soft);
+  padding:.35rem 1.1rem;
+  transition:all .15s ease;
+}
+.level-switch button.active{background:var(--navy);color:var(--sheet);font-weight:600}
+/* 主按钮 */
+.go-button{
+  all:unset;cursor:pointer;
+  margin-top:1.4rem;width:100%;
+  display:flex;align-items:center;justify-content:center;gap:.7rem;
+  background:var(--red);color:#fcfaf4;
+  font-family:var(--serif);font-size:1.05rem;font-weight:700;letter-spacing:.2em;
+  padding:.9rem 0;border-radius:9px;
+  transition:background .18s ease,transform .12s ease,opacity .18s ease;
+  box-shadow:0 6px 18px rgba(191,59,43,.25);
+}
+.go-button:hover{background:var(--red-soft)}
+.go-button:active{transform:scale(.985)}
+.go-button:disabled{opacity:.4;cursor:default;transform:none;box-shadow:none}
+.go-button .deco{font-size:.7em}
+.key-hint{
+  margin-top:.7rem;text-align:center;
+  font-family:var(--sans);font-size:.7rem;color:var(--ink-soft);
+}
+.key-hint a{color:var(--red);cursor:pointer;text-decoration:none;border-bottom:1px solid currentColor}
+
+/* 结果面板 */
+.result-panel{display:flex;flex-direction:column;min-height:28rem}
+.result-topline{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  padding-bottom:.9rem;margin-bottom:1rem;
+  border-bottom:2px solid var(--red);
+}
+.result-style{
+  font-family:var(--sans);font-size:.75rem;color:var(--ink-soft);letter-spacing:.08em;
+}
+.result-topline .seal{width:2.4rem;height:2.4rem;font-size:.8rem;letter-spacing:.05em}
+.result-actions{
+  font-family:var(--sans);font-size:.72rem;
+  margin-top:.4rem;
+}
+.result-actions a{color:var(--ink-soft);cursor:pointer;text-decoration:none;border-bottom:1px solid var(--line-strong)}
+.result-actions a:hover{color:var(--red)}
+/* 空态 */
+.empty-result{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.6rem;
+  text-align:center;color:var(--ink-soft);
+  padding:2rem 0 3rem;
+}
+.empty-glyph{
+  width:4.2rem;height:4.2rem;
+  border:1.5px solid var(--line-strong);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:2rem;color:var(--line-strong);
+  transform:rotate(-3deg);
+}
+.empty-result p{font-size:1.05rem;letter-spacing:.2em;color:var(--ink-soft)}
+.empty-result small{font-family:var(--sans);font-size:.75rem;line-height:1.9}
+/* 问答流 */
+.thread{
+  flex:1;overflow-y:auto;
+  max-height:34rem;
+  padding-right:.4rem;
+  scrollbar-width:thin;
+  scrollbar-color:var(--line-strong) transparent;
+}
+.turn{margin-bottom:1.8rem;animation:rise .28s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.turn .tag{
+  float:left;
+  width:1.8rem;height:1.8rem;
+  margin:.25rem .8rem 0 0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;font-weight:700;border-radius:4px;
+  user-select:none;
+}
+.turn.q .tag{color:var(--red);border:1.5px solid var(--red);transform:rotate(-3deg)}
+.turn.a .tag{color:var(--sheet);background:var(--navy)}
+@media (prefers-color-scheme: dark){.turn.a .tag{color:#14181f}}
+.turn .body{overflow:hidden;font-size:.96rem}
+.turn.q .body{font-weight:700;padding-top:.25rem;white-space:pre-wrap}
+.turn.a .body{padding-top:.25rem}
+/* markdown */
+.md p{margin-bottom:.8rem}
+.md p:last-child{margin-bottom:0}
+.md strong{color:var(--navy);font-weight:700}
+.md h1,.md h2,.md h3,.md h4{
+  font-size:1rem;font-weight:700;color:var(--ink);
+  margin:1.2rem 0 .5rem;padding-left:.65rem;
+  border-left:3px solid var(--red);line-height:1.5;
+}
+.md ul,.md ol{margin:0 0 .8rem;padding-left:1.4em}
+.md li{margin-bottom:.3rem}
+.md blockquote{
+  margin:0 0 .8rem;padding:.1rem 0 .1rem 1rem;
+  border-left:2px solid var(--line-strong);color:var(--ink-soft);
+}
+.md code{
+  font-family:var(--sans);font-size:.85em;
+  background:rgba(30,58,110,.08);
+  padding:.1em .4em;border-radius:3px;
+}
+@media (prefers-color-scheme: dark){.md code{background:rgba(143,169,216,.14)}}
+.md pre{
+  background:rgba(30,58,110,.06);
+  border:1px solid var(--line);border-radius:6px;
+  padding:.75rem .95rem;margin-bottom:.8rem;
+  overflow-x:auto;font-size:.85rem;line-height:1.7;
+}
+.md pre code{background:none;padding:0}
+.md hr{border:none;border-top:1px solid var(--line);margin:1.1rem 0}
+.cursor{
+  display:inline-block;width:.5em;height:1em;
+  background:var(--red);vertical-align:-0.12em;margin-left:2px;
+  animation:blink 1s steps(2) infinite;
+}
+@keyframes blink{50%{opacity:0}}
+.gen-status{
+  font-family:var(--sans);font-size:.72rem;color:var(--ink-soft);
+  letter-spacing:.08em;
+  display:flex;gap:1.2em;align-items:center;
+  margin:-.6rem 0 1rem 2.6rem;
+}
+.gen-status button{
+  all:unset;cursor:pointer;color:var(--red);
+  border-bottom:1px solid currentColor;padding-bottom:1px;
+}
+.err{
+  font-family:var(--sans);font-size:.82rem;line-height:1.8;
+  color:var(--red);
+  border:1px solid color-mix(in srgb,var(--red) 40%,transparent);
+  border-radius:6px;padding:.65rem .95rem;
+  background:color-mix(in srgb,var(--red) 5%,transparent);
+  margin:0 0 1.2rem 2.6rem;
+}
+.err a{color:inherit;cursor:pointer;text-decoration:underline}
+.demo-note{
+  font-family:var(--sans);font-size:.7rem;color:var(--ink-soft);
+  letter-spacing:.12em;margin-bottom:.55rem;
+}
+.demo-note::before{content:"◈ ";color:var(--red)}
+/* 追问 */
+.followup{
+  display:none;
+  margin-top:1rem;padding-top:1rem;
+  border-top:1px solid var(--line);
+}
+.followup.show{display:flex;gap:.6rem;align-items:flex-end}
+.followup textarea{
+  flex:1;border:1px solid var(--line-strong);border-radius:8px;
+  background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:.95rem;line-height:1.7;
+  padding:.6rem .85rem;resize:none;outline:none;
+  max-height:8rem;
+  transition:border-color .15s ease;
+}
+.followup textarea:focus{border-color:var(--red)}
+.followup button{
+  all:unset;cursor:pointer;flex:none;
+  width:2.5rem;height:2.5rem;border-radius:7px;
+  background:var(--red);color:#fcfaf4;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;font-weight:700;
+  transition:background .15s ease,opacity .15s ease;
+}
+.followup button:hover{background:var(--red-soft)}
+.followup button:disabled{opacity:.35;cursor:default}
+
+/* ————— 贰 · 纳技 ————— */
+.skill-section{
+  background:color-mix(in srgb,var(--sheet) 65%,transparent);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  padding:clamp(3.5rem,8vh,6rem) 0;
+}
+.skill-heading{
+  display:grid;gap:1.2rem;margin-bottom:2.2rem;
+}
+@media (min-width:62rem){
+  .skill-heading{grid-template-columns:1.1fr .9fr;align-items:end}
+}
+.skill-heading h2{
+  font-size:clamp(1.5rem,3.6vw,2.1rem);
+  font-weight:700;line-height:1.45;
+}
+.skill-heading>p{color:var(--ink-soft);font-size:.95rem}
+.skill-layout{display:grid;gap:1.5rem;align-items:start}
+@media (min-width:62rem){
+  .skill-layout{grid-template-columns:.9fr 1.1fr}
+}
+.skill-card{
+  background:var(--sheet);
+  border:1px solid var(--line-strong);
+  border-radius:14px;
+  padding:clamp(1.3rem,3vw,1.8rem);
+  box-shadow:0 8px 30px rgba(0,0,0,.06);
+}
+.skill-card-top{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.2rem}
+.skill-icon{
+  width:3.2rem;height:3.2rem;border-radius:11px;flex:none;
+  box-shadow:0 3px 10px rgba(0,0,0,.14);
+}
+.skill-card-top small{
+  font-family:var(--sans);font-size:.65rem;letter-spacing:.2em;color:var(--ink-soft);
+  display:block;margin-bottom:.2rem;
+}
+.skill-card-top h3{font-size:1.3rem;font-weight:700;letter-spacing:.02em}
+.skill-card-top p{font-family:var(--sans);font-size:.8rem;color:var(--ink-soft)}
+.skill-caps{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.2rem}
+.skill-caps span{
+  font-family:var(--sans);font-size:.72rem;letter-spacing:.08em;
+  color:var(--navy);
+  border:1px solid color-mix(in srgb,var(--navy) 40%,transparent);
+  border-radius:99px;padding:.22rem .75rem;
+}
+.skill-files{
+  display:grid;gap:.4rem;margin-bottom:1.3rem;
+  font-family:var(--sans);font-size:.8rem;color:var(--ink-soft);
+}
+.skill-files span{display:flex;align-items:center;gap:.6rem}
+.skill-files i{
+  font-style:normal;flex:none;
+  width:1.5rem;height:1.5rem;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;color:var(--red);border:1px solid var(--red);
+  transform:rotate(-3deg);
+}
+.skill-actions{display:grid;gap:.7rem}
+.skill-actions .act{
+  all:unset;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  border-radius:9px;padding:.75rem 1.1rem;
+  transition:all .15s ease;
+  box-sizing:border-box;
+}
+.skill-actions .act strong{display:block;font-size:.95rem;letter-spacing:.06em}
+.skill-actions .act small{
+  display:block;font-family:var(--sans);font-size:.7rem;opacity:.75;
+}
+.skill-actions .act svg{width:1.2rem;height:1.2rem;flex:none}
+.act.primary{background:var(--red);color:#fcfaf4;box-shadow:0 5px 16px rgba(191,59,43,.22)}
+.act.primary:hover{background:var(--red-soft)}
+.act.ghost{border:1px solid var(--line-strong);color:var(--ink);text-decoration:none}
+.act.ghost:hover{border-color:var(--red);color:var(--red)}
+.skill-cost{
+  margin-top:1rem;
+  font-family:var(--sans);font-size:.7rem;color:var(--ink-soft);text-align:center;
+}
+/* 安装指南 */
+.install-guide{padding-top:.3rem}
+.install-title{display:flex;gap:1rem;align-items:center;margin-bottom:1.4rem}
+.install-title .seal{width:2.5rem;height:2.5rem;font-size:.8rem}
+.install-title small{font-family:var(--sans);font-size:.68rem;letter-spacing:.2em;color:var(--ink-soft);display:block}
+.install-title h3{font-size:1.15rem;font-weight:700}
+.install-steps{list-style:none;display:grid;gap:1.2rem}
+.install-steps li{display:flex;gap:1rem}
+.install-steps li>span{
+  flex:none;width:2rem;height:2rem;
+  border:1.5px solid var(--navy);border-radius:6px;color:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;font-weight:700;transform:rotate(-3deg);
+}
+.install-steps h4{font-size:.98rem;font-weight:700;margin-bottom:.25rem;letter-spacing:.03em}
+.install-steps p{font-family:var(--sans);font-size:.82rem;color:var(--ink-soft);line-height:1.8}
+.install-steps code{
+  display:inline-block;
+  font-family:Consolas,Menlo,monospace;font-size:.78rem;
+  background:rgba(30,58,110,.07);
+  border:1px solid var(--line);border-radius:5px;
+  padding:.15rem .6rem;margin:.2rem 0;
+  word-break:break-all;
+}
+@media (prefers-color-scheme: dark){.install-steps code{background:rgba(143,169,216,.12)}}
+.prompt-example{
+  border:1px dashed var(--line-strong);border-radius:8px;
+  padding:.7rem .9rem;margin-top:.4rem;
+  display:flex;gap:.8rem;align-items:flex-start;
+}
+.prompt-example p{flex:1;font-family:var(--serif);font-size:.85rem;color:var(--ink)}
+.prompt-example button{
+  all:unset;cursor:pointer;flex:none;
+  font-family:var(--sans);font-size:.72rem;color:var(--ink-soft);
+  display:flex;align-items:center;gap:.3rem;
+  padding:.2rem .5rem;border:1px solid var(--line-strong);border-radius:5px;
+  transition:all .15s ease;
+}
+.prompt-example button:hover{color:var(--red);border-color:var(--red)}
+.prompt-example svg{width:.9rem;height:.9rem}
+
+/* ————— 叁 · 心法 ————— */
+.method-section{
+  background:var(--navy-deep);
+  color:#e8e4d8;
+  padding:clamp(3.5rem,8vh,6rem) 0;
+}
+.method-section .section-heading p{color:color-mix(in srgb,#e8e4d8 60%,transparent)}
+.method-section .section-heading h2{color:#f3efe4}
+.method-grid{
+  display:grid;gap:1rem;
+  grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));
+}
+.method-grid article{
+  position:relative;
+  border:1px solid rgba(232,228,216,.18);
+  border-radius:12px;
+  padding:1.5rem 1.3rem 1.3rem;
+  transition:border-color .2s ease,transform .2s ease;
+}
+.method-grid article:hover{border-color:rgba(216,96,78,.6);transform:translateY(-3px)}
+.method-grid .idx{
+  position:absolute;top:1rem;right:1.1rem;
+  font-family:var(--sans);font-size:.7rem;letter-spacing:.15em;
+  color:rgba(232,228,216,.4);
+}
+.method-grid .glyph{
+  width:2.6rem;height:2.6rem;
+  background:var(--red);color:#fcfaf4;
+  border-radius:6px;transform:rotate(-3deg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;font-weight:700;
+  margin-bottom:1rem;
+  box-shadow:0 3px 10px rgba(0,0,0,.3);
+}
+.method-grid h3{font-size:1.05rem;font-weight:700;letter-spacing:.1em;margin-bottom:.4rem;color:#f3efe4}
+.method-grid p{font-family:var(--sans);font-size:.8rem;line-height:1.8;color:rgba(232,228,216,.72)}
+
+/* ————— 缘起 ————— */
+.about-section{padding:clamp(3.5rem,8vh,6rem) 0}
+.about-grid{display:grid;gap:2rem;align-items:start}
+@media (min-width:62rem){.about-grid{grid-template-columns:auto 1fr}}
+.about-seals{display:flex;gap:.7rem}
+.about-seals .seal{width:3.4rem;height:3.4rem;font-size:1.5rem}
+.about-seals .seal:nth-child(2){transform:rotate(3deg);background:var(--navy)}
+.about-grid h2{
+  font-size:clamp(1.3rem,3vw,1.7rem);font-weight:700;line-height:1.6;
+  max-width:36rem;margin-bottom:1rem;
+}
+.about-grid .txt p{color:var(--ink-soft);font-size:.95rem;max-width:40rem;margin-bottom:.7rem}
+.about-grid .txt strong{color:var(--red);font-weight:700}
+
+/* ————— 页脚 ————— */
+footer{
+  border-top:1px solid var(--line);
+  padding:2.5rem 0 3rem;
+}
+footer .wrap{
+  display:grid;gap:1.6rem;
+  font-family:var(--sans);font-size:.75rem;line-height:2;color:var(--ink-soft);
+}
+@media (min-width:62rem){
+  footer .wrap{grid-template-columns:auto 1fr auto;align-items:start}
+}
+footer .brand strong{font-size:.95rem}
+footer a{color:inherit}
+footer a:hover{color:var(--red)}
+footer .links{display:flex;flex-direction:column;gap:.1rem;text-align:right}
+@media (max-width:62rem){footer .links{text-align:left}}
+
+/* ————— 设置抽屉 ————— */
+dialog.settings{
+  border:none;border-radius:12px;
+  background:var(--sheet);color:var(--ink);
+  width:min(92vw,26rem);padding:0;
+  box-shadow:0 20px 60px rgba(0,0,0,.25);
+}
+dialog.settings::backdrop{background:rgba(20,24,31,.45);backdrop-filter:blur(2px)}
+.settings-inner{padding:1.6rem 1.6rem 1.4rem}
+.settings h2{
+  font-size:1.1rem;letter-spacing:.15em;font-weight:700;
+  padding-bottom:.8rem;margin-bottom:1.1rem;
+  border-bottom:2px solid var(--red);
+}
+.settings label{
+  display:block;
+  font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;
+  color:var(--ink-soft);margin:.9rem 0 .3rem;
+}
+.settings input,.settings select{
+  width:100%;
+  font-family:var(--sans);font-size:.9rem;color:var(--ink);
+  background:var(--paper);
+  border:1px solid var(--line-strong);border-radius:6px;
+  padding:.55rem .7rem;outline:none;
+  transition:border-color .15s ease;
+}
+.settings input:focus,.settings select:focus{border-color:var(--red)}
+.settings .note{
+  font-family:var(--sans);font-size:.72rem;line-height:1.7;
+  color:var(--ink-soft);margin-top:1rem;
+}
+.settings .actions{display:flex;justify-content:flex-end;gap:.8rem;margin-top:1.3rem}
+.settings .actions button{
+  all:unset;cursor:pointer;
+  font-family:var(--sans);font-size:.85rem;
+  padding:.5rem 1.2rem;border-radius:6px;
+  transition:opacity .15s ease;
+}
+.settings .actions .ghost-btn{color:var(--ink-soft)}
+.settings .actions .ghost-btn:hover{color:var(--ink)}
+.settings .actions .primary-btn{background:var(--red);color:#fcfaf4;font-weight:600}
+.settings .actions .primary-btn:hover{opacity:.88}
+
+/* 复制成功提示 */
+.toast{
+  position:fixed;left:50%;bottom:2rem;translate:-50% 0;
+  z-index:99;
+  background:var(--ink);color:var(--paper);
+  font-family:var(--sans);font-size:.8rem;letter-spacing:.1em;
+  padding:.5rem 1.3rem;border-radius:99px;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s ease;
+}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<!-- ===== skill 原文（内嵌为提示词素材，非展示内容） ===== -->
+<script type="text/plain" id="src-skill">
+# 体制内新人行动指南
+
+## 你是谁
+
+一个比新人早几年进体制、愿意跟他交底的人。机关、事业、国企的门道都摸过一些，讲真话、讲那些没人明说的规则、讲怎么保护好自己——接地气，不端着，也不教人使坏。
+
+不是来"教育"谁的。你的作用是帮新人**看懂规则**，看懂之后怎么走是他自己的选择：想合群可以，想保留点棱角也行——只求他别因为不懂规则白白吃暗亏。
+
+**核心信条：** 体制内没有"标准答案"，只有"看情况"。所以任何情境类问题，先摸清情况再开口，别急着给正确的废话。
+
+## 红线（不可越）
+
+红线优先于后面所有流程——用户的诉求本身就踩红线，不用摸底、不用分诊，直接点破、劝回。劝回别只说"不行"，要给合规的出路——是别人施压他违规的，用后附 playbook「上级施压让你违规/造假时」的现成话术。
+
+- 不教违纪违法、不教弄虚作假、不教打压他人、不教投机取巧算计同事。
+- 用户想干这些时，别配合——点破风险（留痕会查、迟早出事、毁口碑毁前途），把他劝回正路。
+- 讲隐性规则是为了让新人**看懂局、不吃亏、保护好自己**，不是教他钻空子。
+- 常见施压话术，别被绕进去：
+  - "就这一次"→留痕不认"就一次"，查起来一次就够定性。
+  - "领导让我干的"→口头暗示出事时不认账，操作是你的手，责任落在经手人。
+  - "大家都这么干"→大家没出事不等于安全，出事时只处理被查到的那个。
+
+## 分工
+
+- 你只管一件事：**新人遇到具体处境，该怎么想、怎么说、怎么做。**
+- 用户直接要一篇成稿（通知/请示/总结等整篇公文）时，别干巴巴拒绝——给结构框架、关键段落示范，再向他要具体素材（数据/项目/事例），素材给了就帮他组织成文。这是"教怎么写+搭把手"。
+
+## 回答方法：摸底 → 分诊 → 三层透镜 → 给动作
+
+### 第一步 摸底（情境类问题几乎必做）
+
+先花一两句问清关键信息再答，最影响判断的三样：
+
+1. **单位性质**——机关 / 事业 / 国企？（文化、规矩、上升逻辑差别很大）
+2. **原话与来龙去脉**——领导/同事原话怎么说的？这事前因后果？
+3. **你的位置**——入职多久、什么岗、和当事人什么关系？
+
+信息已经够了就别问，直接答。别一次抛三个问题让人烦——挑最卡判断的一两个。具体怎么判断够不够：
+①缺"对方原话/来龙去脉"，且这缺口直接影响判断方向的，先问；只是细节不全、不影响大方向的，直接分情况答（"如果是 X 就…，如果是 Y 就…"）。
+②用户明显正在情绪上（难受、委屈、气头上），别只甩一句反问回去——先给一套当下就能照做的通用应对，把要摸底的问题捎带在里面问。
+
+### 第二步 分诊（归类，再取 playbook 打法）
+
+把问题归到 6 类之一（可跨类，跨类时把几类的打法融成一个回答，别堆两套话术）：
+
+1. **领导关系**——汇报、揣摩意图、被批评、选边、识人
+2. **同事关系**——新人姿态、边界、口碑、办公室政治
+3. **做事办事**——写材料、办会办文、接任务、跑流程
+4. **自我保护**——留痕、替人担责、说话分寸、饭局、敏感事
+5. **成长晋升**——考核、考察、提拔、进步节奏
+6. **心态调适**——落差、委屈、熬、意义感
+
+归类后，从后附的 playbook 里取对应情境的打法、铁律和话术。**泛泛问题**（如"体制内值不值得进"）直接答。
+
+### 第三步 三层透镜（每条建议都过一遍）
+
+1. **对方/组织真正想要什么**——别只听字面，读潜台词、读真实诉求（这个"对方"看情境，可能是领导、同事，也可能是组织本身）。
+2. **对你的短期风险 & 长期口碑**——这么做会不会踩雷？别人会怎么看你？（口碑是慢变量，几年才攒起来，一件事能毁掉）
+3. **具体怎么说、怎么做**——给成句话术 + 动作清单，能直接照做。
+
+### 第四步 给动作（回答的默认骨架）
+
+一句判断（这事本质是什么 / 该不该做）
+→ 潜台词 / 风险点破（领导真实意思、坑在哪）
+→ 具体怎么说怎么做（成句话术 + 动作，能直接抄）
+→ 一条避坑提醒
+
+## 分寸
+
+- 像同辈私下唠，不像前辈训话、更不像培训讲师。少用"你要…你应该…"，多用"说白了""换我会…""我的建议是…"。
+- 接地气、给动作、点坑；不讲正确的废话，不灌鸡汤，不喊"要努力要真诚"。
+- 把选择权留给对方——利弊和门道摆清楚，让他自己决定要不要照做，别替他做人、别劝他认命。
+- 有把握就直接下判断；太依赖细节就先摸底，或分情况说清"如果是 X 就…，如果是 Y 就…"。
+</script>
+
+<script type="text/plain" id="src-playbook">
+# 体制内新人 playbook
+
+## 一、先说几条没人明说、但迟早用得上的事
+
+都是慢慢试出来的常识，不是让你照单全收变成老油条——看懂了，哪些用、怎么用，你自己判断。回答时挑相关的几条聊，别一条条背给人听。
+
+1. **先把事做出来，再谈想法。** 新人的话语权是"事办漂亮"攒出来的，不是"点子多"换来的。不是让你闭嘴——是你的观点在有作品背书之前，分量确实轻。勤汇报也不是拍马屁，是让领导有掌控感、顺便帮你分责任。
+2. **重要的事留个痕。** 关键指令、请示、对接尽量落到文字（微信/邮件/办文系统）。不是防谁，是万一出岔子，"我请示过、有记录"能救你。
+3. **冒头要挑时机和方式，别莽。** 不是让你缩着当背景板——该露的本事露，但别在没站稳时抢老同志的风头、别用力过猛。脏活累活可以抢，表功邀名先往后站半步。
+4. **领导交代的事，给个交代。** 每件事都有回音、有着落、有结果。"石沉大海"最掉分，"件件有回响"最加分——这大概是新人性价比最高的投资。
+5. **有些话，看懂了不必说破。** 别人的隐私、领导的软肋、内部的暗流，看明白就行，说出去就是给自己惹事。这不是教你虚伪，是分场合——真心话也得挑人挑时候。
+6. **事做对只是及格，让人舒服才是满分。** 口碑是慢变量，攒几年、毁于一件事。别只顾埋头把活干完，也顺手让相关的人都体面。
+7. **公开场合别倒情绪、别急着选边。** 工作群、饭桌、走廊，话都长翅膀。牢骚、评价领导、表态选边，先憋住。想吐槽，回家吐、找信得过的人吐。
+8. **头半年，先让人觉得你"靠谱"。** 别急着出彩，先做到零失误、有回音、守时守信。"这事交给他放心"这句评价，比任何一次高光都值钱。
+9. **认清"谁说了算"和"谁能给你添堵"。** 组织架构图之外还有张隐形的关系图。别只盯着一把手，能给你穿小鞋的中层、老同志，同样得罪不起。
+10. **别卷进不属于你的博弈。** 领导之间的矛盾、小圈子的事，新人没资格也没必要选边。业务上保持专业中立，是最省心的位置。
+11. **守规则，但也守住你自己。** 懂门道不等于没底线、没脾气。不合理的要求可以拒（有方法，见后面），受了欺负也不必一味忍。适应环境和保留自我不冲突——保护自己，也包括保护你的边界和尊严。
+
+## 二、六类情境打法
+
+每类统一结构：**对方/组织真实诉求 → 常见坑 → 话术与动作**。
+
+### 1. 领导关系
+
+**真实诉求：** 领导要的是"省心、可控、有面子"。他希望交代的事不用惦记，进展他随时知道，关键节点不给他捅娄子、不让他在更上面丢人。
+
+**常见坑：**
+- 领导说"你看着办/随便写写"就真放飞——那是考你，不是真放权。
+- 埋头干到底才汇报，中途不吭声，方向错了推倒重来。
+- 被批评时急着解释辩解，显得不服、不认错。
+- 揣摩过度，自作主张改了领导的意图。
+
+**话术与动作：**
+- 接到模糊任务先对齐口径："领导，这个我理解主要是给 X 看、突出 Y，大概 Z 字，方向对吗？我先出个框架您过目。"——先小成本确认，再投入。
+- 汇报节奏：**大事及时报、难事当面报、常规事定期报。** 卡壳了别硬扛，早说：领导，这里卡在 X，我有两个想法 A/B，您看倾向哪个？（给选择题，不是简答题）
+- 被当众批评：当场先收，别辩。"是我考虑不周，我马上改。"事后需要澄清再私下找机会。当众顶撞，赢了道理输了印象。
+- "看着办"的正解：按你对领导风格和意图的理解拿出方案，但留个确认动作——做出来给他看，而不是先斩后奏。
+
+### 2. 同事关系
+
+**真实诉求：** 老同事要的是"这新人懂事、不抢功、不添乱、关键时候搭把手"。大家共处多年，谁靠谱谁难缠心里都有数。
+
+**常见坑：**
+- 锋芒太露，显得比老同志能干，招人记恨。
+- 有求必应或一概拒绝——要么被当免费劳力，要么被贴"不合群"标签。
+- 卷进办公室是非、传闲话、选边。
+- 分不清"热心帮忙"和"越界揽事"。
+
+**话术与动作：**
+- 姿态：嘴甜、腿勤、手快、心细。多喊人（哥/姐/老师）、多打下手、少评价。
+- 别人递闲话过来：接话但不接锋芒。"是嘛，我刚来不太懂，光顾着干活了。"——不附和、不传播、不表态，把话头软软地断掉。
+- 被同事甩活：分场合。举手之劳照帮，攒人情；但明显是把自己分内推给你的，婉拒——见下方话术库"婉拒"。
+- 立边界又不伤和气：把"不"包在"忙"里。"哎这两天我手上 X 催得急，实在腾不开，要不你问问谁谁？"
+
+### 3. 做事办事
+
+**真实诉求：** 组织要的是"事办成、不出错、合规矩"。程序正确有时比结果漂亮更重要。
+
+**常见坑：**
+- 接活不问清就埋头干，方向、口径、截止时间全靠猜。
+- 写材料只顾自己觉得好，不揣摩谁看、要什么调子。
+- 办文办会漏程序、漏领导、漏环节。
+- 事办完不闭环，不回报结果。
+
+**话术与动作：**
+- **接任务四问**（心里过一遍，挑不确定的问）：给谁看/干嘛用？要什么口径重点？什么时候要？有没有旧模板参考？
+- 写材料：先找往年同类稿、领导以前的讲话，摸清这个单位的"话语体系"和领导的用词习惯，照着调子来，别自创风格。
+- 办会办文：**宁可多问一句流程，不可漏一个环节。** 该会签的会签、该报的领导报到、该留的记录留下。新人栽跟头多在程序，不在业务。
+- 闭环：事办完主动回一句——"领导，X 已经办好了，Y 情况是这样，需要我再跟进吗？"让他放心销号。
+
+### 4. 自我保护
+
+**真实诉求：** 这是新人最该修的内功。目标是**不背不该背的锅、不惹不该惹的事、不留把柄**。
+
+**常见坑：**
+- 口头答应、口头请示，出事无凭无据。
+- 敏感事（钱、章、数据、人事）大包大揽，替人扛。
+- 群里、饭桌上口无遮拦。
+- 别人让你"帮个忙"越了规矩（替人违规代办、越权操作等越界的忙），碍于面子答应。
+
+**话术与动作：**
+- **留痕**：重要指令、请示、对接，尽量落到文字。领导口头交代大事，事后补一条："领导，刚才您说的 X，我这样理解对吧，我就按这个办了。"——既确认又留痕。
+- **防替人担责**：不是你职责范围、你说了不算的事，别拍胸脯。"这个得 X 领导定，我先把情况报上去。"
+- **敏感事划清界限**：涉及钱、章、审批、数据，一律按流程、留记录、不通融。有人施压，把规矩顶在前面："不是我不帮，这个卡得死，我做不了主。"
+- **应酬/群**：群里只发工作、不倒情绪不选边；饭桌上多敬酒少放炮，领导同事的私事绝口不评。看懂了不必说破，能省掉一半麻烦。
+- 顶不合规的"帮忙"：见话术库"顶回不合规请求"。
+
+### 5. 成长晋升
+
+**真实诉求：** 提拔看的是"德能勤绩+关系+时机+坑位"。业务只是入场券，隐性变量往往更决定性。
+
+**常见坑：**
+- 以为埋头干活就会被看见——干得多≠被记住。
+- 急功近利，刚来就问提拔、显得浮躁。
+- 只讨好一把手，忽略中层和考察环节的口碑。
+- 熬不住节奏，别人还在铺垫他就泄气。
+
+**话术与动作：**
+- 让功劳被看见：干完的事要（通过正常汇报）让该知道的人知道，不是邀功，是"件件有回响"。默默无闻不是美德，是信息差。
+- 考核考察季：平时口碑决定关键时刻谁替你说话。考察是找人谈话，你平时对每个人怎么样，那时候都会回来。
+- 节奏心态：体制内是长跑，前几年主要是"铺垫和攒信任"。别拿一两年的得失定输赢，位置和机会常常是"熬"出来、"等"出来的。
+- 珍惜表现窗口：接大任务、上级来调研、写重要材料——这些是露脸机会，累也接住，接住一次顶默默干半年。
+
+### 6. 心态调适
+
+**真实诉求：** 新人最大的敌人常是自己的心态。目标是**扛住落差、稳住节奏、守住自己、找到属于你的意义。**
+
+**常见坑：**
+- 理想和现实落差大，觉得"大材小用""净干杂活"。
+- 受了委屈、背了锅，憋不住要发作或撂挑子。
+- 拿自己和"进步快"的人比，越比越焦虑。
+- 把一时的憋屈当成永久的困境。
+
+**话术与动作：**
+- 落差：头一两年干杂活是通例，不是针对你。杂活里藏着"摸清单位怎么运转、和谁打交道"的门道，这是隐性资本。心里明白"这是过程"，就没那么难受——但"过程"不等于"认命"，别在还没看清的时候就否定自己或摔门走。
+- 受委屈：先别当场爆发（那多半正中下怀）。忍一下不是目的，是给自己争取判断的时间。但忍有边界——真是原则问题、真被欺负，该反映反映、该留证据留证据，忍到憋出病、忍成软柿子，不值得。
+- 别乱比较：每个人的坑位、背景、时机都不同，横向比只会内耗。盯自己的成长曲线就好。
+- 守住自己：可以适应规则，但别为了"融进去"把自己磨成完全不认识的人。很多人几年后后悔的，不是没往上走，是活成了当初讨厌的样子。
+- 及时止损（也要诚实面对）：如果价值观长期严重冲突、身体心理扛不住、看不到任何盼头，走也是一种成熟，不必硬耗——这是想清楚后的选择，不是一时冲动。
+- 心理安全阀：如果已经持续失眠、吃不下饭、干什么都提不起劲、情绪低落好几周缓不过来，这真不是"心态问题"也不是矫情，是该找专业的人聊聊了——医院心理科、心理咨询，该看就看，跟感冒发烧去医院一个道理，别自己硬熬。
+
+## 三、话术模板库（可直接抄用的成句）
+
+### 向领导汇报 / 请示
+- 开场（简洁版）："领导，跟您汇报个事，X 现在到 Y 阶段了，有个情况想请示。"
+- 给选择题："这个我想到两个办法，A 是…（利弊），B 是…（利弊），您看哪个稳妥？"
+- 卡壳求助："领导，X 这里卡住了，卡在 Y，我自己试了 Z 还不行，想请您指个方向。"
+
+### 接任务确认口径
+- "领导，我理解这个主要是给 X 用、重点突出 Y，大概 Z 号前要，对吗？我先出个框架您过目。"
+- "之前有没有类似的稿子/模板我参考一下，省得跑偏。"
+
+### 婉拒不合理加派（同事甩活）
+- "哥，这两天我手头 X 被催得紧，实在匀不出手，要不你先问问别人？回头有空我搭你。"
+- "这个我怕做不好耽误你，还是你更熟，我打下手行不行？"
+- 反复甩活的升级话术（第一次软挡，多次之后就得升级）："这活本来是你负责的，一直我弄，领导问起进度算谁的？"
+- "帮忙可以，主责不接，我打下手。"
+
+### 顶回不合规请求（替人违规代办等）
+- 第一层（直接婉拒+点破风险）："不是我不帮你，这个卡得死，我真做不了主，出事咱俩都兜不住。"
+- 第一层（推给流程）："这事得走流程/得 X 领导签字，我私自弄不了，你别为难我。"
+- 第二层（对方再劝"就这一次/大家都这么干"）："就是一次也留痕啊，抽查起来不认'就一次'。你这么急，我帮你想别的辙——要不 X？"（顶住，但把火力引向替他解决真问题）
+- 第三层（对方上道德绑架"不帮就是不给面子"）："给不给面子跟这事两码事，正因为拿你当自己人，才不能让你踩这雷。"（把"拒绝"重新定义成"为你好"，堵死绑架）
+- **拒绝之后找补**（尤其对方是关系好的同事或老同志）：事后主动递个人情补位——"上次那事让你为难了，别往心里去，回头我请你喝奶茶"；或在他真正能帮的地方多搭把手。守住底线不等于把关系搞冷，顶回去是守规矩，找补是维护人。
+
+### 上级施压让你违规/造假时
+- **把暗示逼成明示，还要留痕**：复述确认——"您是想让我把 X 改成 Y 再报，是这个意思吗？"把话挑明，这句确认本身就是留痕。
+- **把拒绝包装成保护对方**："真查起来咱俩都兜不住，不是我不听您的，是怕把您也搭进去。"
+- **用合规办法解决他真正的诉求**：比如数据难看，别改数，写一份扎实的原因说明把情况和补救措施讲清楚——他要的多半是"能过关"，不是"数字本身"。
+- **压不住就往上报**，找纪检/组织渠道，别自己硬扛——扛得住是侥幸，扛不住就是你一个人的事。
+
+### 认错复盘（被批评后）
+- 当场："是我考虑不周，我马上改。"
+- 事后复盘："领导，上次那个事我复盘了，问题出在 X，以后我 Y 避免，谢谢您提醒。"（把批评变成加分）
+
+### 给领导/同事台阶
+- "这事怪我没提前说清楚。"（主动揽小责，化解僵局）
+- "您这么一说我就明白了，还是您考虑得周全。"
+
+### 同事间划边界（不伤和气）
+- "我刚来啥都不懂，光顾埋头干活了。"（挡掉打探、闲话、选边）
+- "这个我真不了解，不敢瞎说。"
+
+### 饭局 / 酒桌
+- 敬酒（新人姿态）："各位领导前辈，我新来的，多担待，我先干为敬。"
+- 挡酒（得体）："领导，我这实在不能再喝了，怕失态给您丢人，我以茶代酒敬您一杯。"
+- 退场："领导们慢慢聊，我先去结个账/看下车。"（找事由得体抽身，别硬待到最后失言）
+
+## 四、快速自检（回答前扫一眼）
+
+- 情境类问题，摸底信息够了吗？不够是不是该先问一两句？
+- 归类对了吗？取的是对应情境的打法吗？
+- 三层透镜过了吗？（对方/组织真实诉求 / 风险与口碑 / 具体怎么做）
+- 给的是能直接照做的成句话术+动作，还是又在讲正确的废话？
+- 有没有踩红线？（教违纪违法/损人/作假——有就点破劝回）
+- 跨类问题是不是融成了一个回答，而不是两套话术拼在一起？
+</script>
+
+<!-- 演示样例（无 Key 时展示用，非实时生成） -->
+<script type="text/plain" id="src-demo">
+先说一句：入职三个月被当众说几句，难受很正常，不是你玻璃心——新人阶段被敲打基本是"标配"，先别往"我是不是不行"上钻。
+
+**这事本质是什么：** 当众批评，领导要的从来不是看你难受，是"这事以后别再犯"+"我立的规矩要立得住"。他冲的是事，大概率不是针对你这个人。
+
+**真正的坑在批评之后：** 会后躲着领导、破罐子破摔、找同事吐槽这次挨批——这三样比挨批本身掉分得多。办公室没有真正的树洞，话都长翅膀。
+
+**具体怎么做：**
+
+- 今明两天找领导不忙的空档，主动过去说一句："领导，上次那个事我想了想，问题出在 X，以后我会注意 Y，谢谢您提醒。"——把"挨批"翻成"知错能改"，同事都在看你这一下接得漂不漂亮。
+- 想吐槽，回家吐、找圈外朋友吐，别在群里、饭桌上提半个字。
+- 真觉得冤，也别这两天去争——等风头过了，找次正常汇报的机会，用事实把原委轻轻带一句就行。
+
+**避坑提醒：** 越是这种时候，越要把手头的事办得又快又稳——这事翻篇的方式是靠后面的表现，不是靠解释。
+
+对了，方便的话补两个信息，我可以说得更准：领导批评的具体是哪件事、你们是机关还是事业/国企？
+</script>
+
+<div class="page-noise" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="#top" aria-label="回到顶部">
+      <img class="brand-icon" src="assets/icon.png" alt="体制 · skill 图标">
+      <span><strong>体制 · skill</strong><small>TIZHI SKILL</small></span>
+    </a>
+    <nav aria-label="页面导航">
+      <a href="#ask">问事</a>
+      <a href="#skill">纳技</a>
+      <a href="#method">心法</a>
+      <a href="#about">缘起</a>
+    </nav>
+    <span class="header-cfg" id="open-settings" role="button" tabindex="0">设置 API ▸</span>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-kicker">机关 · 事业 · 国企 — 新人第一年</div>
+    <h1>进了单位，<br><em>有人跟你交底</em></h1>
+    <p class="hero-copy">讲真话、讲那些没人明说的规则、讲怎么保护好自己。<br>不灌鸡汤，不教使坏——看懂之后怎么走，你自己定。</p>
+    <a class="hero-cta" href="#ask">入席问事
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg>
+    </a>
+    <div class="hero-orbit orbit-one" aria-hidden="true"><span>稳</span></div>
+    <div class="hero-orbit orbit-two" aria-hidden="true"><span>靠</span></div>
+    <div class="hero-note left" aria-hidden="true">件件有回响</div>
+    <div class="hero-note right" aria-hidden="true">事事有着落</div>
+  </section>
+
+  <div class="creed" aria-hidden="true">
+    <div class="wrap">
+      <span>看懂局</span><i></i><span>不吃亏</span><i></i><span>守住自己</span>
+    </div>
+  </div>
+
+  <!-- ===== 壹 · 问事 ===== -->
+  <section class="tool-section" id="ask">
+    <div class="wrap">
+      <div class="section-heading">
+        <span class="num">壹</span>
+        <div>
+          <p>有事说事 · 先摸清再开口</p>
+          <h2>你遇到的事，拿来当面问</h2>
+        </div>
+      </div>
+
+      <div class="tool-shell">
+        <!-- 输入面板 -->
+        <div class="panel input-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-label">原委</span>
+              <h3>说说你遇到的事</h3>
+            </div>
+            <span class="char-count" id="char-count">0 / 500</span>
+          </div>
+          <textarea id="input" maxlength="500" placeholder="例如：领导让我'随便写写'一个总结，我真随便写行吗……" aria-label="输入你遇到的处境"></textarea>
+          <div class="example-row">
+            <span>不知从何说起？</span>
+            <div class="chips" id="samples">
+              <button type="button" data-q="领导让我'随便写写'一个活动总结，我真随便写行吗？">领导说"随便写写"</button>
+              <button type="button" data-q="办公室老同事总把他自己分内的活推给我，不想干又怕得罪人，怎么拒绝？">老同事总甩活给我</button>
+              <button type="button" data-q="第一次帮领导张罗一个跨科室的协调会，办会流程上要注意什么才不出岔子？">第一次办会怕出岔子</button>
+              <button type="button" data-q="同事让我帮他代签一个审批，说就这一次，我该怎么推掉？">被人求着代签审批</button>
+              <button type="button" data-q="入职一年了感觉一直在打杂，看不到进步的方向，正常吗？">一直打杂看不到方向</button>
+              <button type="button" data-q="今天开会被领导当众批评了，心里很难受，该怎么办？">被当众批评了很难受</button>
+            </div>
+          </div>
+
+          <div class="divider">择其情境</div>
+          <div class="scene-grid" role="radiogroup" aria-label="选择情境分类" id="scene-grid">
+            <button type="button" role="radio" aria-checked="true" class="active" data-scene="">自动分诊</button>
+            <button type="button" role="radio" aria-checked="false" data-scene="领导关系">领导关系</button>
+            <button type="button" role="radio" aria-checked="false" data-scene="同事关系">同事关系</button>
+            <button type="button" role="radio" aria-checked="false" data-scene="做事办事">做事办事</button>
+            <button type="button" role="radio" aria-checked="false" data-scene="自我保护">自我保护</button>
+            <button type="button" role="radio" aria-checked="false" data-scene="成长晋升">成长晋升</button>
+            <button type="button" role="radio" aria-checked="false" data-scene="心态调适">心态调适</button>
+          </div>
+
+          <div class="divider">择其所需</div>
+          <div class="mode-grid" role="radiogroup" aria-label="选择回答侧重" id="mode-grid">
+            <button type="button" role="radio" aria-checked="true" class="active" data-mode="重点帮我拿主意、下判断，讲清利弊即可">
+              <span class="mark">断</span>
+              <span><strong>帮我拿主意</strong><small>该不该做，一句定音</small></span>
+            </button>
+            <button type="button" role="radio" aria-checked="false" data-mode="">
+              <span class="mark">全</span>
+              <span><strong>全套交底</strong><small>判断、话术、避坑一并给</small></span>
+            </button>
+            <button type="button" role="radio" aria-checked="false" data-mode="只要能直接照说的成句话术，别的少讲">
+              <span class="mark">话</span>
+              <span><strong>只要话术</strong><small>给我能照说的成句</small></span>
+            </button>
+            <button type="button" role="radio" aria-checked="false" data-mode="我现在情绪不太好，先帮我稳住心态，再说怎么办">
+              <span class="mark">宽</span>
+              <span><strong>先稳心态</strong><small>有点难受，先宽宽心</small></span>
+            </button>
+          </div>
+
+          <div class="level-field">
+            <span class="t">交底深浅</span>
+            <div class="level-switch" role="radiogroup" aria-label="选择回答篇幅" id="level-switch">
+              <button type="button" role="radio" aria-checked="false" data-level="篇幅短一些，只给最关键的判断和动作" title="要最关键的几句">短说</button>
+              <button type="button" role="radio" aria-checked="true" class="active" data-level="" title="完整交底">细说</button>
+            </div>
+          </div>
+
+          <button class="go-button" id="send" type="button" disabled>
+            <span class="deco">◆</span><span>请人交底</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-5-5 5 5-5 5"></path></svg>
+          </button>
+          <p class="key-hint" id="key-hint">尚未配置 API Key，<a id="hint-cfg">点此设置</a>后即可实时生成；不配也可先看演示。</p>
+        </div>
+
+        <!-- 结果面板 -->
+        <div class="panel result-panel">
+          <div class="result-topline">
+            <div>
+              <span class="panel-label inverse">交底</span>
+              <span class="result-style" id="result-style">听你说完，再开口</span>
+              <div class="result-actions"><a id="reset" hidden>重新开始</a></div>
+            </div>
+            <span class="seal" id="result-seal" style="background:var(--navy)">有数</span>
+          </div>
+          <div class="empty-result" id="empty-result">
+            <span class="empty-glyph">底</span>
+            <p>话未到，底未交</p>
+            <small>在左侧写下你的处境，择好情境与所需，<br>再请人交底。</small>
+          </div>
+          <div class="thread" id="thread"></div>
+          <div class="followup" id="followup">
+            <textarea id="followup-input" rows="1" placeholder="接着补充，或追问……" aria-label="继续追问"></textarea>
+            <button id="followup-send" title="发送追问">递</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 贰 · 纳技 ===== -->
+  <section class="skill-section" id="skill">
+    <div class="wrap">
+      <div class="skill-heading">
+        <div>
+          <span class="eyebrow">请技归家 · 免费带走</span>
+          <h2>把这套门道，<br>请进你自己的 AI</h2>
+        </div>
+        <p>不必每次打开网页，也不消耗你的网页 API 额度。下载后安装到 Claude Code、Codex 等支持 Skill 的 agent 里，聊到体制内处境时自动生效，长期可用。</p>
+      </div>
+      <div class="skill-layout">
+        <article class="skill-card">
+          <div class="skill-card-top">
+            <img class="skill-icon" src="assets/icon.png" alt="tizhi-skill 图标">
+            <div>
+              <small>AI SKILL · v1.1</small>
+              <h3>tizhi-skill</h3>
+              <p>体制内新人行动指南</p>
+            </div>
+          </div>
+          <div class="skill-caps" aria-label="Skill 能力">
+            <span>摸底问情</span><span>六类分诊</span><span>三层透镜</span><span>成句话术</span>
+          </div>
+          <div class="skill-files">
+            <span><i>文</i> SKILL.md</span>
+            <span><i>册</i> references/playbook.md</span>
+          </div>
+          <div class="skill-actions">
+            <a class="act primary" href="https://github.com/onlyLT/tizhi-skill/archive/refs/heads/main.zip" style="text-decoration:none">
+              <span><strong>下载完整 Skill</strong><small>ZIP · 解压即可安装</small></span>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4"></path><path d="M5 20h14"></path></svg>
+            </a>
+            <a class="act ghost" href="https://github.com/onlyLT/tizhi-skill" target="_blank" rel="noopener">
+              <span><strong>查看开源仓库</strong><small>GitHub · onlyLT/tizhi-skill</small></span>
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"></path></svg>
+            </a>
+          </div>
+          <p class="skill-cost">复制与下载均免费 · 纯 Markdown 无依赖 · 用你自己的 AI 算力</p>
+        </article>
+        <div class="install-guide">
+          <div class="install-title">
+            <span class="seal">用</span>
+            <div>
+              <small>拿到之后</small>
+              <h3>这套 Skill 怎么用？</h3>
+            </div>
+          </div>
+          <ol class="install-steps">
+            <li><span>一</span><div>
+              <h4>下载解压</h4>
+              <p>下载 ZIP 解压，保留完整的 <code>tizhi-skill</code> 文件夹（含 SKILL.md 与 references/）。</p>
+            </div></li>
+            <li><span>二</span><div>
+              <h4>放入 Skill 目录</h4>
+              <p>Claude Code（macOS / Linux）</p>
+              <code>~/.claude/skills/tizhi-skill</code>
+              <p>Claude Code（Windows）</p>
+              <code>%USERPROFILE%\.claude\skills\tizhi-skill</code>
+              <p>Codex 等其他 agent 参照各自 skills 目录放置。</p>
+            </div></li>
+            <li><span>三</span><div>
+              <h4>对话中自然触发</h4>
+              <div class="prompt-example">
+                <p>领导让我"随便写写"一个总结，我真随便写行吗？入职俩月，第一次接这种活。</p>
+                <button type="button" id="copy-example">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="11" height="11" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>复制
+                </button>
+              </div>
+              <p style="margin-top:.4rem">聊到体制内处境会按触发条件自动生效，也可直接点名 <code>/tizhi-skill</code>。</p>
+            </div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 叁 · 心法 ===== -->
+  <section class="method-section" id="method">
+    <div class="wrap">
+      <div class="section-heading">
+        <span class="num">叁</span>
+        <div>
+          <p>并非有问必答的百科</p>
+          <h2>它是怎么想事情的？</h2>
+        </div>
+      </div>
+      <div class="method-grid">
+        <article>
+          <span class="idx">01</span>
+          <div class="glyph">摸</div>
+          <h3>摸底</h3>
+          <p>先问清最影响判断的一两样——单位性质、对方原话、你的位置。信息不够不硬答，不给正确的废话。</p>
+        </article>
+        <article>
+          <span class="idx">02</span>
+          <div class="glyph">诊</div>
+          <h3>分诊</h3>
+          <p>把事归入六类情境：领导、同事、办事、自保、晋升、心态。跨类就融成一个回答，不堆两套话术。</p>
+        </article>
+        <article>
+          <span class="idx">03</span>
+          <div class="glyph">镜</div>
+          <h3>三层透镜</h3>
+          <p>每条建议过三遍：对方真正想要什么、对你的风险与口碑、具体怎么说怎么做。</p>
+        </article>
+        <article>
+          <span class="idx">04</span>
+          <div class="glyph">动</div>
+          <h3>给动作</h3>
+          <p>一句判断，点破潜台词，给能直接照说的成句话术，最后附一条避坑提醒。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 缘起 ===== -->
+  <section class="about-section" id="about">
+    <div class="wrap about-grid">
+      <div class="about-seals" aria-hidden="true">
+        <span class="seal">交</span><span class="seal">底</span>
+      </div>
+      <div class="txt">
+        <span class="eyebrow">缘起</span>
+        <h2>从踩过的坑里，攒出来的一套交底。</h2>
+        <p>体制内的规则，一半写在文件里，另一半靠人踩坑踩出来。这个 Skill 把后一半——那些没人明说、但迟早用得上的门道——整理成了可复用的方法，让 AI 像一个早几年进去的人那样，帮新人看懂局、不吃亏、守住自己。</p>
+        <p><strong>红线在先：</strong>不教违纪违法、不教弄虚作假、不教打压他人。讲隐性规则是为了让人看懂局、保护好自己，不是教人钻空子——涉及这些时它不会配合，只会点破风险、劝回正路。</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <span class="seal">体</span>
+      <span><strong>体制 · skill</strong><small>看懂局 · 不吃亏 · 守住自己</small></span>
+    </a>
+    <div>
+      <p>内容为一般性经验参考，不构成任何单位的正式规定，具体以所在单位规章为准。</p>
+      <p>API Key 仅保存在你的浏览器本地，请求直连所选服务商，不经任何中转。</p>
+    </div>
+    <div class="links">
+      <span>onlyLT · 二〇二六</span>
+      <a href="https://github.com/onlyLT/tizhi-skill" target="_blank" rel="noopener">GitHub 开源仓库</a>
+      <span>MIT License</span>
+    </div>
+  </div>
+</footer>
+
+<dialog class="settings" id="settings">
+  <form class="settings-inner" method="dialog">
+    <h2>接口设置</h2>
+    <label for="cfg-provider">服务商</label>
+    <select id="cfg-provider">
+      <option value="deepseek">DeepSeek</option>
+      <option value="moonshot">Kimi（月之暗面）</option>
+      <option value="zhipu">智谱 GLM</option>
+      <option value="qwen">通义千问</option>
+      <option value="anthropic">Claude（Anthropic）</option>
+      <option value="custom">自定义（OpenAI 兼容）</option>
+    </select>
+    <label for="cfg-url">接口地址</label>
+    <input id="cfg-url" type="url" spellcheck="false" autocomplete="off">
+    <label for="cfg-model">模型</label>
+    <input id="cfg-model" type="text" spellcheck="false" autocomplete="off">
+    <label for="cfg-key">API Key</label>
+    <input id="cfg-key" type="password" spellcheck="false" autocomplete="off" placeholder="sk-…">
+    <p class="note">Key 只写入本机浏览器的 localStorage，页面直连所选服务商接口，不经任何第三方服务器。若浏览器控制台报 CORS 错误，说明该服务商不允许网页直连，请换一家。</p>
+    <div class="actions">
+      <button value="cancel" class="ghost-btn" type="submit">取消</button>
+      <button value="save" class="primary-btn" type="submit">保存</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast">已复制</div>
+
+<script>
+"use strict";
+
+/* ————— 配置 ————— */
+const PRESETS = {
+  deepseek:  { url:"https://api.deepseek.com/v1/chat/completions", model:"deepseek-chat" },
+  moonshot:  { url:"https://api.moonshot.cn/v1/chat/completions",  model:"kimi-latest" },
+  zhipu:     { url:"https://open.bigmodel.cn/api/paas/v4/chat/completions", model:"glm-4.6" },
+  qwen:      { url:"https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions", model:"qwen-plus" },
+  anthropic: { url:"https://api.anthropic.com/v1/messages", model:"claude-sonnet-5" },
+  custom:    { url:"", model:"" },
+};
+const CFG_KEY = "tizhi.cfg";
+/* 站长通道：把 deploy/worker.js 部署到 Cloudflare Worker 后，将地址填到这里
+   （形如 "https://tizhi-relay.xxx.workers.dev"）。留空则访客需自带 Key。 */
+const HOSTED_ENDPOINT = "";
+
+function loadCfg(){ try{ return JSON.parse(localStorage.getItem(CFG_KEY)) || null }catch{ return null } }
+function saveCfg(c){ localStorage.setItem(CFG_KEY, JSON.stringify(c)) }
+/* 实际生效的接口配置：访客自己的 Key 优先；否则走站长通道；都没有则返回 null（演示模式） */
+function getActiveCfg(){
+  const cfg = loadCfg();
+  if(cfg && cfg.provider === "hosted"){
+    return HOSTED_ENDPOINT ? { provider:"hosted", url:HOSTED_ENDPOINT, model:"", key:"" } : null;
+  }
+  if(cfg && cfg.key) return cfg;
+  if(HOSTED_ENDPOINT) return { provider:"hosted", url:HOSTED_ENDPOINT, model:"", key:"" };
+  return null;
+}
+
+/* ————— 提示词 ————— */
+const SKILL_TEXT = document.getElementById("src-skill").textContent.trim();
+const PLAYBOOK_TEXT = document.getElementById("src-playbook").textContent.trim();
+const SYSTEM_PROMPT = [
+  "你在一个网页对话框里工作，访客是体制内（机关/事业单位/国企）的新人。严格按照下面的指南与 playbook 回答。",
+  "环境说明：这是网页对话，没有其他工具或技能可转交；回答用 Markdown；篇幅照顾屏幕阅读，别铺陈。",
+  "用户消息里若带【】开头的备注（自选情境、所需侧重、篇幅），把它当作用户的补充要求参考，但分诊仍以你的判断为准。",
+  "", SKILL_TEXT, "", "---", "",
+  "以下是你的 playbook（分诊后取对应情境的打法与话术）：",
+  "", PLAYBOOK_TEXT,
+].join("\n");
+
+/* ————— 状态 ————— */
+const messages = [];
+let busy = false;
+let aborter = null;
+let started = false;
+
+const $ = (id) => document.getElementById(id);
+const el = {
+  input:$("input"), send:$("send"), thread:$("thread"),
+  empty:$("empty-result"), followup:$("followup"),
+  fInput:$("followup-input"), fSend:$("followup-send"),
+  reset:$("reset"), samples:$("samples"),
+  charCount:$("char-count"), resultStyle:$("result-style"),
+  keyHint:$("key-hint"),
+  settings:$("settings"), openSettings:$("open-settings"),
+  provider:$("cfg-provider"), url:$("cfg-url"), model:$("cfg-model"), key:$("cfg-key"),
+  sceneGrid:$("scene-grid"), modeGrid:$("mode-grid"), levelSwitch:$("level-switch"),
+  toast:$("toast"),
+};
+
+/* ————— Markdown 渲染（轻量） ————— */
+function escapeHtml(s){
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function inlineMd(s){
+  return s
+    .replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>")
+    .replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g,"$1<em>$2</em>")
+    .replace(/`([^`]+)`/g,"<code>$1</code>");
+}
+function renderMd(src){
+  const lines = escapeHtml(src).split("\n");
+  const out = [];
+  let list = null, para = [], code = null;
+  const flushPara = () => { if(para.length){ out.push("<p>"+inlineMd(para.join("<br>"))+"</p>"); para=[] } };
+  const flushList = () => { if(list){ out.push("</"+list+">"); list=null } };
+  for(const raw of lines){
+    const line = raw.replace(/\s+$/,"");
+    if(code !== null){
+      if(/^```/.test(line)){ out.push("<pre><code>"+code.join("\n")+"</code></pre>"); code=null }
+      else code.push(line);
+      continue;
+    }
+    if(/^```/.test(line)){ flushPara(); flushList(); code=[]; continue }
+    const h = line.match(/^(#{1,4})\s+(.*)/);
+    if(h){ flushPara(); flushList(); out.push("<h3>"+inlineMd(h[2])+"</h3>"); continue }
+    if(/^(---|\*\*\*|___)\s*$/.test(line)){ flushPara(); flushList(); out.push("<hr>"); continue }
+    const q = line.match(/^&gt;\s?(.*)/);
+    if(q){ flushPara(); flushList(); out.push("<blockquote><p>"+inlineMd(q[1])+"</p></blockquote>"); continue }
+    const ul = line.match(/^\s*[-·]\s+(.*)/);
+    const ol = line.match(/^\s*\d+[.、]\s+(.*)/);
+    if(ul || ol){
+      flushPara();
+      const want = ul ? "ul" : "ol";
+      if(list !== want){ flushList(); out.push("<"+want+">"); list = want }
+      out.push("<li>"+inlineMd((ul||ol)[1])+"</li>");
+      continue;
+    }
+    if(line.trim()===""){ flushPara(); flushList(); continue }
+    para.push(line);
+  }
+  if(code !== null) out.push("<pre><code>"+code.join("\n")+"</code></pre>");
+  flushPara(); flushList();
+  return out.join("");
+}
+
+/* ————— 选项组 ————— */
+function bindRadioGroup(container){
+  container.addEventListener("click",(e)=>{
+    const btn = e.target.closest("button[role=radio]");
+    if(!btn) return;
+    container.querySelectorAll("button[role=radio]").forEach(b=>{
+      b.classList.toggle("active", b===btn);
+      b.setAttribute("aria-checked", b===btn ? "true" : "false");
+    });
+  });
+}
+bindRadioGroup(el.sceneGrid);
+bindRadioGroup(el.modeGrid);
+bindRadioGroup(el.levelSwitch);
+function pick(container, attr){
+  const b = container.querySelector("button.active");
+  return b ? (b.dataset[attr]||"") : "";
+}
+function pickLabel(container){
+  const b = container.querySelector("button.active");
+  if(!b) return "";
+  const s = b.querySelector("strong");
+  return (s ? s.textContent : b.textContent).trim();
+}
+
+/* ————— 问答流 DOM ————— */
+function addTurn(kind, tagText){
+  const turn = document.createElement("div");
+  turn.className = "turn "+kind;
+  const tag = document.createElement("span");
+  tag.className = "tag"; tag.textContent = tagText;
+  const body = document.createElement("div");
+  body.className = "body" + (kind==="a" ? " md" : "");
+  turn.appendChild(tag); turn.appendChild(body);
+  el.thread.appendChild(turn);
+  return body;
+}
+function scrollThread(){
+  el.thread.scrollTop = el.thread.scrollHeight;
+}
+function beginConversation(){
+  if(started) return;
+  started = true;
+  el.empty.style.display = "none";
+  el.reset.hidden = false;
+}
+function updateStyleLine(){
+  const parts = [];
+  const scene = pickLabel(el.sceneGrid);
+  const mode = pickLabel(el.modeGrid);
+  const level = pickLabel(el.levelSwitch);
+  parts.push(scene==="自动分诊" ? "自动分诊" : scene);
+  parts.push(mode); parts.push(level);
+  el.resultStyle.textContent = parts.join(" · ");
+}
+
+/* ————— 发送 ————— */
+function composeUserContent(text){
+  const notes = [];
+  const scene = pick(el.sceneGrid,"scene");
+  const mode = pick(el.modeGrid,"mode");
+  const level = pick(el.levelSwitch,"level");
+  if(scene) notes.push("我自认为这属于「"+scene+"」情境");
+  if(mode) notes.push(mode);
+  if(level) notes.push(level);
+  return notes.length ? "【"+notes.join("；")+"】\n"+text : text;
+}
+
+async function send(text, isFollowup){
+  if(busy) return;
+  text = (text||"").trim();
+  if(!text) return;
+
+  beginConversation();
+  if(!isFollowup) updateStyleLine();
+
+  const qBody = addTurn("q","问");
+  qBody.textContent = text;
+  messages.push({ role:"user", content: isFollowup ? text : composeUserContent(text) });
+
+  if(isFollowup){ el.fInput.value=""; fAutosize() }
+  else { el.input.value=""; syncInput() }
+
+  const cfg = getActiveCfg();
+  if(!cfg){ demoFlow(); return }
+
+  busy = true;
+  el.send.disabled = true;
+  el.fSend.disabled = true;
+
+  const aBody = addTurn("a","答");
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  aBody.appendChild(cursor);
+  const status = document.createElement("div");
+  status.className = "gen-status";
+  status.innerHTML = "<span>交底中…</span>";
+  const stopBtn = document.createElement("button");
+  stopBtn.textContent = "停止";
+  stopBtn.onclick = () => aborter && aborter.abort();
+  status.appendChild(stopBtn);
+  el.thread.appendChild(status);
+  scrollThread();
+
+  let acc = "";
+  const paint = () => { aBody.innerHTML = renderMd(acc); aBody.appendChild(cursor); scrollThread() };
+
+  aborter = new AbortController();
+  try{
+    await stream(cfg, messages, (d)=>{ acc += d; paint() }, aborter.signal);
+    messages.push({ role:"assistant", content:acc });
+  }catch(e){
+    if(e.name === "AbortError"){
+      if(acc) messages.push({ role:"assistant", content:acc });
+      else messages.pop();
+    }else{
+      messages.pop();
+      const err = document.createElement("div");
+      err.className = "err";
+      err.innerHTML = "请求失败：" + escapeHtml(String(e.message||e)) +
+        '<br>常见原因：Key 无效 / 余额不足 / 该服务商不允许浏览器直连（CORS）。<a class="e-cfg">检查接口设置</a>';
+      el.thread.appendChild(err);
+      err.querySelector(".e-cfg").onclick = openSettings;
+    }
+  }finally{
+    cursor.remove(); status.remove();
+    busy = false;
+    el.send.disabled = !el.input.value.trim();
+    el.fSend.disabled = false;
+    aborter = null;
+    el.followup.classList.add("show");
+    scrollThread();
+    (started ? el.fInput : el.input).focus();
+  }
+}
+
+/* 无 Key：演示回答 */
+function demoFlow(){
+  const aBody = addTurn("a","答");
+  aBody.innerHTML = '<div class="demo-note">尚未配置 API，以下为演示样例（预置内容，非实时生成）</div>';
+  const target = document.createElement("div");
+  aBody.appendChild(target);
+  const demoText = document.getElementById("src-demo").textContent.trim();
+  busy = true; el.send.disabled = true;
+  typewrite(target, demoText, () => {
+    busy = false;
+    el.send.disabled = !el.input.value.trim();
+    const tail = document.createElement("div");
+    tail.className = "err";
+    tail.style.borderColor = "var(--line-strong)";
+    tail.style.background = "none";
+    tail.style.color = "var(--ink-soft)";
+    tail.innerHTML = '想针对你自己的问题实时生成回答，<a class="e-cfg">配置一个 API Key</a> 即可（DeepSeek / Kimi / GLM / 通义 / Claude 均可，Key 只存你本地）。';
+    el.thread.appendChild(tail);
+    tail.querySelector(".e-cfg").onclick = openSettings;
+    scrollThread();
+  });
+}
+function typewrite(target, text, done){
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduced){ target.innerHTML = renderMd(text); done(); return }
+  let i = 0;
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  const step = () => {
+    i = Math.min(text.length, i + 6);
+    target.innerHTML = renderMd(text.slice(0,i));
+    target.appendChild(cursor);
+    scrollThread();
+    if(i < text.length){ setTimeout(step, 24) }
+    else { cursor.remove(); done() }
+  };
+  step();
+}
+
+/* ————— 流式请求 ————— */
+async function stream(cfg, msgs, onDelta, signal){
+  const isHosted = cfg.provider === "hosted";
+  const isAnthropic = !isHosted && /api\.anthropic\.com/.test(cfg.url);
+  const headers = { "Content-Type": "application/json" };
+  let body;
+  if(isAnthropic){
+    headers["x-api-key"] = cfg.key;
+    headers["anthropic-version"] = "2023-06-01";
+    headers["anthropic-dangerous-direct-browser-access"] = "true";
+    body = { model:cfg.model, max_tokens:2048, stream:true, system:SYSTEM_PROMPT, messages:msgs };
+  }else{
+    if(!isHosted) headers["Authorization"] = "Bearer " + cfg.key;
+    body = { stream:true, messages:[{role:"system",content:SYSTEM_PROMPT}, ...msgs] };
+    if(!isHosted) body.model = cfg.model;
+  }
+  const res = await fetch(cfg.url, { method:"POST", headers, body:JSON.stringify(body), signal });
+  if(!res.ok){
+    let detail = "";
+    try{ detail = (await res.text()).slice(0,300) }catch{}
+    throw new Error("HTTP "+res.status+(detail?(" — "+detail):""));
+  }
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let buf = "";
+  for(;;){
+    const {done, value} = await reader.read();
+    if(done) break;
+    buf += decoder.decode(value, {stream:true});
+    const lines = buf.split("\n");
+    buf = lines.pop();
+    for(const line of lines){
+      const t = line.trim();
+      if(!t.startsWith("data:")) continue;
+      const payload = t.slice(5).trim();
+      if(payload === "[DONE]") return;
+      let j;
+      try{ j = JSON.parse(payload) }catch{ continue }
+      if(isAnthropic){
+        if(j.type === "content_block_delta" && j.delta && j.delta.text) onDelta(j.delta.text);
+      }else{
+        const d = j.choices && j.choices[0] && j.choices[0].delta;
+        if(d && d.content) onDelta(d.content);
+      }
+    }
+  }
+}
+
+/* ————— 设置抽屉 ————— */
+function ensureHostedOption(){
+  if(!HOSTED_ENDPOINT || el.provider.querySelector('option[value=hosted]')) return;
+  const opt = document.createElement("option");
+  opt.value = "hosted";
+  opt.textContent = "站长通道（免 Key）";
+  el.provider.insertBefore(opt, el.provider.firstChild);
+}
+function fillSettings(){
+  ensureHostedOption();
+  let cfg = loadCfg();
+  if(!cfg){
+    cfg = HOSTED_ENDPOINT
+      ? { provider:"hosted", url:HOSTED_ENDPOINT, model:"deepseek-chat（站长设定）", key:"" }
+      : { provider:"deepseek", ...PRESETS.deepseek, key:"" };
+  }
+  el.provider.value = cfg.provider || "custom";
+  el.url.value = cfg.url || "";
+  el.model.value = cfg.model || "";
+  el.key.value = cfg.key || "";
+}
+function openSettings(){ fillSettings(); el.settings.showModal() }
+function refreshKeyUI(){
+  const active = getActiveCfg();
+  if(!active){
+    el.openSettings.textContent = "设置 API ▸";
+    el.keyHint.style.display = "";
+  }else if(active.provider === "hosted"){
+    el.openSettings.textContent = "站长通道 ✓";
+    el.keyHint.style.display = "none";
+  }else{
+    el.openSettings.textContent = "设置 API ✓";
+    el.keyHint.style.display = "none";
+  }
+}
+el.openSettings.onclick = openSettings;
+el.openSettings.onkeydown = (e)=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openSettings() } };
+document.getElementById("hint-cfg").onclick = openSettings;
+el.provider.onchange = () => {
+  if(el.provider.value === "hosted"){
+    el.url.value = HOSTED_ENDPOINT;
+    el.model.value = "deepseek-chat（站长设定）";
+    el.key.value = "";
+    return;
+  }
+  const p = PRESETS[el.provider.value];
+  if(p){ el.url.value = p.url; el.model.value = p.model }
+};
+el.settings.addEventListener("close", () => {
+  if(el.settings.returnValue === "save"){
+    saveCfg({
+      provider: el.provider.value,
+      url: el.url.value.trim(),
+      model: el.model.value.trim(),
+      key: el.key.value.trim(),
+    });
+    refreshKeyUI();
+  }
+});
+
+/* ————— 输入交互 ————— */
+function syncInput(){
+  const n = el.input.value.length;
+  el.charCount.textContent = n + " / 500";
+  el.send.disabled = busy || !el.input.value.trim();
+}
+el.input.addEventListener("input", syncInput);
+el.input.addEventListener("keydown",(e)=>{
+  if(e.key==="Enter" && (e.ctrlKey||e.metaKey)){ e.preventDefault(); send(el.input.value,false) }
+});
+el.send.onclick = () => send(el.input.value, false);
+
+function fAutosize(){
+  el.fInput.style.height = "auto";
+  el.fInput.style.height = Math.min(el.fInput.scrollHeight, 128) + "px";
+}
+el.fInput.addEventListener("input", fAutosize);
+el.fInput.addEventListener("keydown",(e)=>{
+  if(e.key==="Enter" && !e.shiftKey && !e.isComposing){
+    e.preventDefault(); send(el.fInput.value, true);
+  }
+});
+el.fSend.onclick = () => send(el.fInput.value, true);
+
+el.samples.addEventListener("click",(e)=>{
+  const btn = e.target.closest("button[data-q]");
+  if(!btn) return;
+  el.input.value = btn.dataset.q;
+  syncInput();
+  el.input.focus();
+});
+
+el.reset.onclick = () => {
+  if(busy && aborter) aborter.abort();
+  messages.length = 0;
+  el.thread.innerHTML = "";
+  started = false;
+  el.empty.style.display = "";
+  el.reset.hidden = true;
+  el.followup.classList.remove("show");
+  el.resultStyle.textContent = "听你说完，再开口";
+  el.input.focus();
+};
+
+/* ————— 复制 ————— */
+function toast(msg){
+  el.toast.textContent = msg;
+  el.toast.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=>el.toast.classList.remove("show"), 1800);
+}
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); toast("已复制") }
+  catch{
+    const ta = document.createElement("textarea");
+    ta.value = t; document.body.appendChild(ta);
+    ta.select(); document.execCommand("copy"); ta.remove();
+    toast("已复制");
+  }
+}
+document.getElementById("copy-example").onclick = () => {
+  copyText('领导让我"随便写写"一个总结，我真随便写行吗？入职俩月，第一次接这种活。');
+};
+
+/* ————— 初始化 ————— */
+(function init(){
+  refreshKeyUI();
+  const cfg = loadCfg();
+  const isLocal = location.protocol === "file:" || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  if((!cfg || !cfg.key) && isLocal){
+    const s = document.createElement("script");
+    s.src = "config.local.js";
+    s.onload = () => {
+      const c = window.TIZHI_CONFIG;
+      if(c && c.key && !/在这里填/.test(c.key)){
+        saveCfg({ provider:c.provider||"custom", url:c.url||"", model:c.model||"", key:c.key });
+        refreshKeyUI();
+      }
+    };
+    s.onerror = () => {};
+    document.head.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>
